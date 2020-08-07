@@ -14,11 +14,9 @@ class CreateOptionTable extends Migration
     public function up()
     {
         Schema::create('option', function (Blueprint $table) {
-            $table->integer('id');
-            $table->primary('id');
-
-            $table->integer('product_id');
-            // $table->foreign('product_id')->references('id')->on('product')->onUpdate('cascade')->onDelete('cascade');
+            $table->increments('id')->unsigned();
+            
+            $table->integer('product_id')->unsigned();
 
             $table->string('name')->nullable();
             $table->string('image')->nullable();
