@@ -19,7 +19,7 @@
   <!-- Custom styles for layouts -->
   <link href="{{ asset('css/layouts.css') }}" rel="stylesheet">
 
-  <title>@yield('title')</title>
+  <title>@yield('title')SBT順保堂</title>
 
 </head>
 

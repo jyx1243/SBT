@@ -10,11 +10,11 @@ class Location extends Model
 
     public function zone()
     {
-        return $this->belongsTo('Zone');
+        return $this->belongsTo('App\Models\Zone');
     }
 
     public function Option()
     {
-        return $this->belongsTo('Option');
+        return $this->belongsTo('App\Models\Option');
     }
 }

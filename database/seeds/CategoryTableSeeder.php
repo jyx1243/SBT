@@ -12,22 +12,12 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         DB::table('category')->insert([
-            'name' => '藥材',
-        ]);
-        DB::table('category')->insert([
-            'name' => '藥粉',
-        ]);
-        DB::table('category')->insert([
-            'name' => '藥丸',
-        ]);
-        DB::table('category')->insert([
-            'name' => '藥水',
-        ]);
-        DB::table('category')->insert([
-            'name' => '藥帖',
-        ]);
-        DB::table('category')->insert([
-            'name' => '其他',
+            ['name' => '藥材'],
+            ['name' => '藥粉'],
+            ['name' => '藥丸'],
+            ['name' => '藥水'],
+            ['name' => '藥帖'],
+            ['name' => '其他']
         ]);
     }
 }

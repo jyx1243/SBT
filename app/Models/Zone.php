@@ -10,6 +10,6 @@ class Zone extends Model
 
     public function location()
     {
-        return $this->hasMany('Location');
+        return $this->hasMany('App\Models\Location');
     }
 }

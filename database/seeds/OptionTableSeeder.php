@@ -11,23 +11,22 @@ class OptionTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('option')->insert([
+        DB::table('option')->insert([[
             'product_id' => 1,
-            'image' => '11',
-        ]);
-        DB::table('option')->insert([
+            'name' => null,
+            'image' => '11.jpg'
+        ], [
             'product_id' => 2,
-            'image' => '21',
-        ]);
-        DB::table('option')->insert([
+            'name' => null,
+            'image' => '21.jpg'
+        ], [
             'product_id' => 3,
             'name' => '高麗蔘',
-            'image' => '31',
-        ]);
-        DB::table('option')->insert([
+            'image' => '31.jpg'
+        ], [
             'product_id' => 3,
             'name' => '石柱參',
-            'image' => '32',
-        ]);
+            'image' => '32.jpg'
+        ]]);
     }
 }

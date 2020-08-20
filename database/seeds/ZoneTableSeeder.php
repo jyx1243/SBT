@@ -12,19 +12,11 @@ class ZoneTableSeeder extends Seeder
     public function run()
     {
         DB::table('zone')->insert([
-            'name' => '櫃檯A',
-        ]);
-        DB::table('zone')->insert([
-            'name' => '櫃檯B',
-        ]);
-        DB::table('zone')->insert([
-            'name' => '櫃檯C',
-        ]);
-        DB::table('zone')->insert([
-            'name' => '櫃檯D',
-        ]);
-        DB::table('zone')->insert([
-            'name' => '櫃檯E',
+            ['name' => '櫃檯A'],
+            ['name' => '櫃檯B'],
+            ['name' => '櫃檯C'],
+            ['name' => '櫃檯D'],
+            ['name' => '櫃檯E']
         ]);
     }
 }

@@ -8,13 +8,18 @@ class Option extends Model
 {
     protected $table = 'option';
 
-    public function location()
-    {
-        return $this->hasMany('Location');
-    }
-
     public function product()
     {
-        return $this->belongsTo('Product');
+        return $this->belongsTo('App\Models\Product');
+    }
+
+    public function defaultLocation()
+    {
+        return $this->belongsTo('App\Models\Location', 'default_location_id');
+    }
+
+    public function location()
+    {
+        return $this->hasMany('App\Models\Location');
     }
 }

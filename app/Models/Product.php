@@ -10,11 +10,11 @@ class Product extends Model
 
     public function option()
     {
-        return $this->hasMany('Option');
+        return $this->hasMany('App\Models\Option');
     }
 
     public function category()
     {
-        return $this->belongsTo('Category');
+        return $this->belongsTo('App\Models\Category');
     }
 }

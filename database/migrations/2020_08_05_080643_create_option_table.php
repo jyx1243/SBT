@@ -15,12 +15,10 @@ class CreateOptionTable extends Migration
     {
         Schema::create('option', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            
             $table->integer('product_id')->unsigned();
-
             $table->string('name')->nullable();
             $table->string('image')->nullable();
-
+            $table->integer('default_location_id')->unsigned()->nullable()->comment('默認位置');
             $table->timestamps();
         });
     }
