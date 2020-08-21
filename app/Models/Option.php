@@ -22,4 +22,9 @@ class Option extends Model
     {
         return $this->hasMany('App\Models\Location');
     }
+
+    public function price()
+    {
+        return $this->hasMany('App\Models\Price');
+    }
 }

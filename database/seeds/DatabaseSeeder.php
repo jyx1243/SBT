@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(OptionTableSeeder::class);
         $this->call(ZoneTableSeeder::class);
         $this->call(LocationTableSeeder::class);
+        $this->call(UnitTableSeeder::class);
+        $this->call(PriceTableSeeder::class);
+        $this->call(SaleTableSeeder::class);
     }
 }

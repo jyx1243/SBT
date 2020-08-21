@@ -18,11 +18,11 @@
         </div>
 
         @forelse ($options as $option)
-            <div class="row border-top pt-3 flex-nowrap" style="height: 150px;">
-                <div class="ml-3 justify-content-center align-items-center d-none d-sm-flex bg-white" style="height: 175px; width: 175px">
+            <div class="row border-top pt-3 flex-nowrap">
+                <div class="ml-3 justify-content-center align-items-center d-none d-sm-flex bg-white" style="height: 150px; width: 150px">
                     <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
                 </div>
-                <div class="ml-3 justify-content-center align-items-center d-flex d-sm-none bg-white" style="height: 125px; width: 125px">
+                <div class="ml-3 justify-content-center align-items-center d-flex d-sm-none bg-white" style="height: 100px; width: 100px">
                     <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
                 </div>
                 <div class="col">
@@ -34,18 +34,35 @@
                                     <span class="h5">/ {{ $option->name }}</span>
                                 @endif
                             </h4>
-                            <h6 class="text-muted text-truncate"> {{ $option->product->subname }}</h6>
                         </div>
                         <div class="col-auto ml-auto">
                             <h4><span class="badge badge-dark badge-pill">{{ $option->product->category->name }}</span></h4>
                         </div>
                     </div>
-
+                    <h6 class="text-muted"> {{ $option->product->subname }}</h6>
+                    <div class="mb-2">
+                        @foreach ($option->price as $price)
+                                <span class="h5">$</span>
+                                <span class="h4">{{ $price->value }}</span>
+                                <span class="h6 mr-2"> / {{ $price->unit->name }}</span>
+        
+                                @foreach ($price->sale as $sale)
+                                <span class="badge badge-danger mr-2">
+                                    <span class="h5">優惠 $</span>
+                                    <span class="h4">{{ $sale->value }}</span>
+                                    <span class="h6"> / {{ $sale->quantity }}{{ $price->unit->name }}</span>
+                                </span>
+                                @endforeach
+                            @endforeach
+                    </div>
                 </div>
             </div>
+
+            
+
             <div class="row align-items-center mb-3">
-                <div class="d-none d-sm-flex mr-3" style="width: 175px;"></div>
-                
+                <div class="d-none d-sm-flex mr-3" style="width: 150px;"></div>
+
                 @include('product/locationSpan')
                 
                 <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="">
