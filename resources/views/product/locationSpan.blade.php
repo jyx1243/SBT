@@ -1,4 +1,4 @@
-<span class="bg-white p-1 pr-2 rounded shadow-sm ml-3">
+<span class="bg-white p-1 pr-2 rounded shadow-sm">
     <svg class="bi m-1" width="18" height="18" fill="currentColor">
         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#box-seam"/>
     </svg>
