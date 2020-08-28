@@ -13,36 +13,41 @@ class PriceTableSeeder extends Seeder
     {
         DB::table('price')->insert([[
             'option_id' => 1,
-            'unit_id' => 3,
+            'unit_id' => 4,
             'value' => 30
         ], [
             'option_id' => 1,
-            'unit_id' => 4,
+            'unit_id' => 5,
             'value' => 420
         ], [
             'option_id' => 2,
-            'unit_id' => 3,
+            'unit_id' => 4,
             'value' => 10
         ], [
             'option_id' => 2,
-            'unit_id' => 4,
+            'unit_id' => 5,
             'value' => 100
         ], [
             'option_id' => 3,
-            'unit_id' => 3,
+            'unit_id' => 4,
             'value' => 300
         ], [
             'option_id' => 3,
-            'unit_id' => 4,
+            'unit_id' => 5,
             'value' => 4200
         ], [
             'option_id' => 4,
-            'unit_id' => 3,
+            'unit_id' => 4,
             'value' => 250
         ], [
             'option_id' => 4,
-            'unit_id' => 4,
+            'unit_id' => 5,
             'value' => 3000
         ]]);
+
+        DB::table('option')->where('id', 1)->update(['default_price_id' => 1]);
+        DB::table('option')->where('id', 2)->update(['default_price_id' => 3]);
+        DB::table('option')->where('id', 3)->update(['default_price_id' => 5]);
+        DB::table('option')->where('id', 4)->update(['default_price_id' => 7]);
     }
 }

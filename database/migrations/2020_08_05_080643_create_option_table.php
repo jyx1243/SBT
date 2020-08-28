@@ -18,6 +18,7 @@ class CreateOptionTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
+            $table->integer('default_price_id')->unsigned()->nullable()->comment('默認價格');
             $table->integer('default_location_id')->unsigned()->nullable()->comment('默認位置');
             $table->timestamps();
         });

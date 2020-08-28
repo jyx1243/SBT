@@ -18,7 +18,7 @@ class Price extends Model
         return $this->belongsTo('App\Models\Unit');
     }
 
-    public function sale()
+    public function sales()
     {
         return $this->hasMany('App\Models\Sale');
     }

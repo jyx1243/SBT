@@ -8,7 +8,7 @@ class Unit extends Model
 {
     protected $table = 'unit';
 
-    public function price()
+    public function prices()
     {
         return $this->hasMany('App\Models\Price');
     }

@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $table = 'product';
 
-    public function option()
+    public function options()
     {
         return $this->hasMany('App\Models\Option');
     }

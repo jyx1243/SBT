@@ -8,7 +8,7 @@ class Zone extends Model
 {
     protected $table = 'zone';
 
-    public function location()
+    public function locations()
     {
         return $this->hasMany('App\Models\Location');
     }

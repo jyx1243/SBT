@@ -13,17 +13,22 @@ class Option extends Model
         return $this->belongsTo('App\Models\Product');
     }
 
+    public function defaultPrice()
+    {
+        return $this->belongsTo('App\Models\Price', 'default_price_id');
+    }
+
     public function defaultLocation()
     {
         return $this->belongsTo('App\Models\Location', 'default_location_id');
     }
 
-    public function location()
+    public function locations()
     {
         return $this->hasMany('App\Models\Location');
     }
 
-    public function price()
+    public function prices()
     {
         return $this->hasMany('App\Models\Price');
     }

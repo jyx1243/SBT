@@ -16,7 +16,7 @@ class CreateUnitTable extends Migration
         Schema::create('unit', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name')->unique();
-            $table->enum('standard', ['台制', '公制'])->comment('單位標準');
+            $table->enum('standard', ['個數', '台制', '公制'])->comment('單位標準');
             $table->smallInteger('multiple')->unsigned()->comment('倍率');
             $table->timestamps();
         });

@@ -25,9 +25,11 @@
 
 <body>
     
-  @include('layouts/navbar')
-  @yield('content')
-  @include('layouts/footer')
+  <div class="bg-light">
+    @include('layouts/navbar')
+    @yield('content')
+    @include('layouts/footer')
+  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('jquery/jquery.min.js') }}"></script>

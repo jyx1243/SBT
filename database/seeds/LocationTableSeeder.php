@@ -35,6 +35,12 @@ class LocationTableSeeder extends Seeder
             'layer' => 3,
             'col' => null,
             'row' => null
+        ], [
+            'option_id' => 1,
+            'zone_id' => 5,
+            'layer' => 3,
+            'col' => null,
+            'row' => null
         ]]);
 
         DB::table('option')->where('id', 1)->update(['default_location_id' => 1]);
