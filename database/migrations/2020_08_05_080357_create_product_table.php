@@ -15,8 +15,8 @@ class CreateProductTable extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('subname')->nullable()->comment('別名');
+            $table->string('name', 10)->unique();
+            $table->string('subname', 40)->nullable()->comment('別名');
             $table->tinyInteger('category_id')->unsigned();
             $table->timestamp('searched_at')->nullable()->comment('最後搜尋時間');
             $table->timestamps();
