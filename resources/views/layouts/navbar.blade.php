@@ -16,11 +16,19 @@
             </div>
         </form>
 
-        <a class="h6 mb-0 text-dark text-decoration-none ml-sm-auto order-2 order-sm-3" href="{{ route('product.index') }}">
-            <svg class="bi" width="26" height="26" fill="currentColor">
-                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person"/>
-            </svg> 登入
-        </a>
+        <div class="ml-sm-auto order-2 order-sm-3">
+            <a class="h6 text-dark text-decoration-none" href="{{ route('product.index') }}">
+                <svg class="bi" width="18" height="18" fill="currentColor">
+                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#bag"/>
+                </svg> 商品
+            </a>
+    
+            <a class="h6 text-dark text-decoration-none ml-3" href="">
+                <svg class="bi" width="22" height="22" fill="currentColor">
+                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person"/>
+                </svg> 登入
+            </a>
+        </div>
     </div>
 </nav>
 <!-- Navigation End  -->

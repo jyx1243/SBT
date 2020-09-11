@@ -14,8 +14,8 @@ class AddForeignToLocationTable extends Migration
     public function up()
     {
         Schema::table('location', function (Blueprint $table) {
-            $table->foreign('option_id')->references('id')->on('option')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('zone_id')->references('id')->on('zone')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('option_id')->references('id')->on('option');
+            $table->foreign('zone_id')->references('id')->on('zone');
         });
     }
 

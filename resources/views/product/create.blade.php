@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="container">
-    @include('layouts/error')
-    
+    @include('components/error')
+
     <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -20,7 +20,12 @@
                     <label for="name">
                         名稱<small class="ml-1 text-danger">*必填<span class="ml-1 text-muted">最多10字</span></small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('name') }}" id="name" name="name" placeholder="商品名稱" maxlength="10" required>
+                    <input type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" value="{{ old('name') }}" id="name" name="name" placeholder="商品名稱" maxlength="10" required>
+                    <div class="invalid-feedback">
+                        @foreach ($errors->get('name') as $error)
+                            {{ $error . ' ' }}
+                        @endforeach
+                    </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="category">
@@ -67,8 +72,13 @@
                         圖片
                     </label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" value="{{ old('image') }}" id="image" name="image">
+                        <input type="file" class="custom-file-input @if ($errors->has('image')) is-invalid @endif" value="{{ old('image') }}" id="image" name="image">
                         <label class="custom-file-label" for="image" data-browse="瀏覽">選擇圖片檔案</label>
+                    </div>
+                    <div class="invalid-feedback">
+                        @foreach ($errors->get('name') as $error)
+                            {{ $error . ' ' }}
+                        @endforeach
                     </div>
                 </div>
             </div>

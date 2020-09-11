@@ -78,6 +78,11 @@ class ProductController extends Controller
         $price->value = $request->input('price');
         $price->save();
 
+        if ($request->has('defaultPrice')) {
+            $option->default_price_id = $price->id;
+            $option->save();
+        }
+
         $location = new Location;
         $location->option_id = $option->id;
         $location->zone_id = $request->input('zone');
@@ -85,11 +90,6 @@ class ProductController extends Controller
         $location->col = $request->input('col');
         $location->row = $request->input('row');
         $location->save();
-
-        if ($request->has('defaultPrice')) {
-            $option->default_price_id = $price->id;
-            $option->save();
-        }
 
         if ($request->has('defaultLocation')) {
             $option->default_location_id = $location->id;
@@ -119,7 +119,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $option = Option::find($id);
+        $categorys = Category::orderBy('id')->get();
+        $units = Unit::orderBy('id')->get();
+        $zones = Zone::orderBy('id')->get();
+        return view('product/edit', ['option' => $option, 'categorys' => $categorys, 'units' => $units, 'zones' => $zones]);
     }
 
     /**
@@ -131,7 +135,56 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 如果路徑不存在，就自動建立
+        if (!file_exists('img/product')) {
+            mkdir('img/product', 0755, true);
+        }
+
+        $option = Option::find($id);
+        $option->name = $request->input('optionName');
+        if ($request->hasFile('image')) {
+            if ($product->image != 'default.jpg') {
+                @unlink('img/product/' . $option->image);
+            }
+            $file = $request->file('image');
+            $path = public_path() . '/img/product';
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $fileName);
+            $option->image = $fileName;
+        }
+        $option->save();
+
+        $product = Product::find($option->product->id);
+        $product->name = $request->input('name');
+        $product->subname = $request->input('subname');
+        $product->category_id = $request->input('category');
+        $product->save();
+
+        // $price = new Price;
+        // $price->option_id = $option->id;
+        // $price->unit_id = $request->input('unit');
+        // $price->value = $request->input('price');
+        // $price->save();
+
+        // if ($request->has('defaultPrice')) {
+        //     $option->default_price_id = $price->id;
+        //     $option->save();
+        // }
+
+        foreach ($option->locations as $index=>$location) {
+            $location->zone_id = $request->input('zone.' . $index);
+            $location->layer = $request->input('layer.' . $index);
+            $location->col = $request->input('col.' . $index);
+            $location->row = $request->input('row.' . $index);
+            $location->save();
+        }
+
+        if ($request->has('defaultLocation')) {
+            $option->default_location_id = $request->input('defaultLocation');
+            $option->save();
+        }
+
+        return redirect()->route('product.show', $option->id);
     }
 
     /**

@@ -6,7 +6,7 @@
     <div class="rounded bg-white shadow-sm mt-4 mx-n3 p-3">
         <div class="d-flex justify-content-between align-items-end mb-3">
             <h6>項目總計 {{ count($options) }}</h6>
-            <a href="{{ route('product.create') }}" class="btn btn-secondary rounded-pill">
+            <a href="{{ route('product.create') }}" class="btn btn-outline-secondary rounded-pill">
                 <svg class="bi align-top" width="22" height="22" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
                 </svg>  新增商品
@@ -34,7 +34,7 @@
                                 @endisset
                             </a>
                             <h4>
-                                <span class="badge badge-dark badge-pill">{{ $option->product->category->name }}</span>
+                                <span class="badge badge-secondary">{{ $option->product->category->name }}</span>
                             </h4>
                         </div>
 
@@ -67,7 +67,7 @@
                                 </span>
                             @endif
                             
-                            <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="">
+                            <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="{{ route('product.edit', $option->id) }}">
                                 <svg class="bi" width="18" height="18" fill="currentColor">
                                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
                                 </svg>
@@ -113,7 +113,7 @@
                             </span>
                         @endif
 
-                        <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="">
+                        <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="{{ route('product.edit', $option->id) }}">
                             <svg class="bi" width="18" height="18" fill="currentColor">
                                 <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
                             </svg>

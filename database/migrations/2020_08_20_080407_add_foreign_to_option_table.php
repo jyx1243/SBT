@@ -14,9 +14,9 @@ class AddForeignToOptionTable extends Migration
     public function up()
     {
         Schema::table('option', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('product')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('default_price_id')->references('id')->on('price')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('default_location_id')->references('id')->on('location')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('product');
+            $table->foreign('default_price_id')->references('id')->on('price');
+            $table->foreign('default_location_id')->references('id')->on('location');
         });
     }
 

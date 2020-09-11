@@ -1,18 +1,37 @@
 @extends('layouts.master') 
-@section('title', $option->product->name. ' '. $option->name. ' | ') 
+@section('title', $option->product->name . ' ' . $option->name . ' | ') 
 @section('content')
 
 <div class="container">
     <div class="rounded bg-white shadow-sm mt-4 mx-n3 p-3">
         <div class="d-flex flex-column flex-sm-row">
-            <div class="d-none d-md-flex justify-content-center align-items-center bg-white" style="width: 300px; min-width: 300px; height: 300px;">
-                <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
-            </div>
-            <div class="d-none d-sm-flex d-md-none justify-content-center align-items-center bg-white" style="width: 200px; min-width: 200px; height: 200px;">
-                <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
-            </div>
-            <div class="d-flex d-sm-none justify-content-center align-items-center bg-white" style="max-width: 100%; height: 300px;">
-                <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
+            <div class="d-flex flex-column">
+                <div class="d-none d-md-flex justify-content-center align-items-center bg-white" style="width: 300px; min-width: 300px; height: 300px;">
+                    <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
+                </div>
+                <div class="d-none d-sm-flex d-md-none justify-content-center align-items-center bg-white" style="width: 200px; min-width: 200px; height: 200px;">
+                    <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
+                </div>
+                <div class="d-flex d-sm-none justify-content-center align-items-center bg-white" style="max-width: 100%; height: 300px;">
+                    <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
+                </div>
+    
+                <div class="d-flex flex-column flex-md-row mt-3">
+                    <a class="btn btn-outline-secondary rounded-pill flex-fill mr-0 mr-md-2" href="{{ route('product.edit', $option->id) }}">
+                        <svg class="bi" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
+                        </svg> 修改
+                    </a>
+                    <form method="POST" action="">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-outline-danger btn-block rounded-pill mt-2 mt-md-0">
+                            <svg class="bi" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                            </svg> 刪除
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <div class="d-flex flex-column flex-fill ml-sm-3 mt-3 mt-sm-0">
@@ -24,14 +43,18 @@
                         @endif
                     </h4>
                     <h4>
-                        <span class="badge badge-dark badge-pill">{{ $option->product->category->name }}</span>
+                        <span class="badge badge-secondary">{{ $option->product->category->name }}</span>
                     </h4>
                 </div>
 
                 <h6 class="text-muted"> {{ $option->product->subname }}</h6>
 
-                <div class="rounded bg-light p-3 mt-2">
-                    <h5 class="mb-3">商品價格</h5>
+                <div class="rounded bg-light p-3 mt-3">
+                    <h5 class="mb-3">
+                        <svg class="bi mx-2" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
+                        </svg>商品價格
+                    </h5>
                     @foreach ($option->prices as $price)
                         <div class="border-top pt-2 mt-2">
                             <span class="h5">$</span>
@@ -50,7 +73,11 @@
                 </div>
 
                 <div class="rounded bg-light p-3 mt-3">
-                    <h5 class="mb-3">商品位置</h5>
+                    <h5 class="mb-3">
+                        <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#box-seam"/>
+                        </svg> 商品位置
+                    </h5>
                     @foreach ($option->locations as $location)
                         <div class="border-top pt-2 mt-2">
                             @include('product/locationSpan', ['location' => $location])
@@ -64,10 +91,12 @@
     @if (count($option->product->options) > 1)
         <div class="rounded bg-white shadow-sm mt-3 mx-n3 p-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h5>{{ $option->product->name }} - 相關商品</h5>
-                <h6 class="text-muted">項目總計 {{ count($option->product->options) }}</h6>
+                <h5>
+                    {{ $option->product->name }}
+                    <small class="text-muted">子項目總計 {{ count($option->product->options) }}</small>
+                </h5>
             </div>
-            <div class="d-flex">
+            <div class="d-flex mt-3">
                 @foreach ($option->product->options as $option)
                     <div class="px-2" style="max-width: 50%;">
                         <a href="{{ route('product.show', $option->id) }}">

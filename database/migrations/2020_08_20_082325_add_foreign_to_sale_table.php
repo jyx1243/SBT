@@ -14,7 +14,7 @@ class AddForeignToSaleTable extends Migration
     public function up()
     {
         Schema::table('sale', function (Blueprint $table) {
-            $table->foreign('price_id')->references('id')->on('price')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('price_id')->references('id')->on('price');
         });
     }
 

@@ -14,8 +14,8 @@ class AddForeignToPriceTable extends Migration
     public function up()
     {
         Schema::table('price', function (Blueprint $table) {
-            $table->foreign('option_id')->references('id')->on('option')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('unit_id')->references('id')->on('unit')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('option_id')->references('id')->on('option');
+            $table->foreign('unit_id')->references('id')->on('unit');
         });
     }
 

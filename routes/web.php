@@ -16,3 +16,6 @@ Route::get('/', function () {
 })->name('index');
 
 Route::resource('product', 'ProductController');
+
+Route::post('product/{option}/location', 'LocationController@store')->name('location.store');
+Route::delete('product/{option}/location/{location}', 'LocationController@destroy')->name('location.destroy');
