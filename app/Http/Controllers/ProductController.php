@@ -160,16 +160,20 @@ class ProductController extends Controller
         $product->category_id = $request->input('category');
         $product->save();
 
-        // $price = new Price;
-        // $price->option_id = $option->id;
-        // $price->unit_id = $request->input('unit');
-        // $price->value = $request->input('price');
-        // $price->save();
+        foreach ($option->prices as $priceIndex=>$price) {
+            $price->value = $request->input('price.' . $priceIndex);
+            $price->save();
+            foreach ($price->sales as $saleIndex=>$sale) {
+                $sale->value = $request->input('sale.' . $priceIndex . '.' . $saleIndex);
+                $sale->quantity = $request->input('quantity.' . $priceIndex . '.' . $saleIndex);
+                $sale->save();
+            }
+        }
 
-        // if ($request->has('defaultPrice')) {
-        //     $option->default_price_id = $price->id;
-        //     $option->save();
-        // }
+        if ($request->has('defaultPrice')) {
+            $option->default_price_id = $request->input('defaultPrice');
+            $option->save();
+        }
 
         foreach ($option->locations as $index=>$location) {
             $location->zone_id = $request->input('zone.' . $index);

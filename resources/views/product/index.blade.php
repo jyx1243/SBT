@@ -33,9 +33,7 @@
                                     <span class="h5">/ {{ $option->name }}</span>
                                 @endisset
                             </a>
-                            <h4>
-                                <span class="badge badge-secondary">{{ $option->product->category->name }}</span>
-                            </h4>
+                            <h4><span class="badge badge-secondary">{{ $option->product->category->name }}</span></h4>
                         </div>
 
                         <h6 class="text-muted"> {{ $option->product->subname }}</h6>
@@ -47,10 +45,8 @@
                                 <span class="h6"> / {{ $price->unit->name }}</span>
                 
                                 @foreach ($price->sales as $sale)
-                                    <span class="badge badge-secondary ml-1 align-baseline">
-                                        <span class="p">
-                                            優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}
-                                        </span>                             
+                                    <span class="badge badge-secondary ml-1">
+                                        優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}                            
                                     </span>
                                 @endforeach
 
@@ -94,10 +90,8 @@
                         <span class="h6"> / {{ $price->unit->name }}</span>
                 
                         @foreach ($price->sales as $sale)
-                            <span class="badge badge-secondary ml-1 align-baseline">
-                                <span class="p">
-                                    優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}
-                                </span>                             
+                            <span class="badge badge-secondary ml-1">
+                                優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}                             
                             </span>
                         @endforeach
     

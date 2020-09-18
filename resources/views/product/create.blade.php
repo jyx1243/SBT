@@ -100,7 +100,7 @@
                                 <span class="border-right pr-3">$</span>
                             </span>
                         </div>
-                        <input type="number" class="form-control border-left-0" value="{{ old('price') }}" id="price" name="price" placeholder="每單位商品價格" step='5' required>
+                        <input type="number" class="form-control border-left-0" value="{{ old('price') }}" id="price" name="price" placeholder="每單位商品價格" min="0" required>
                     </div>
                 </div>
                 <div class="form-group col-4">
@@ -109,27 +109,15 @@
                     </label>
                     <select class="custom-select" id="unit" name="unit" required>
                         <option value="">選擇單位</option>
-                        <optgroup label="個數">
-                            @foreach ($units->where('standard', '個數') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                        <optgroup label="台制">
-                            @foreach ($units->where('standard', '台制') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                        <optgroup label="公制">
-                            @foreach ($units->where('standard', '公制') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
+                        @foreach ($units->groupBy('standard') as $groups)
+                            <optgroup label="{{ $groups->first()->standard }}">
+                                @foreach ($groups as $unit)
+                                    <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
+                                        {{ $unit->name }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -183,7 +171,7 @@
                                 </span>
                             </span>
                         </div>
-                        <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('col') }}" id="col" name="col" max="100">
+                        <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('col') }}" id="col" name="col" max="100" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                 <span class="border-left pl-3">欄</span>
@@ -208,7 +196,7 @@
                                 </span>
                             </span>
                         </div>
-                        <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('row') }}" id="row" name="row" max="100">
+                        <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('row') }}" id="row" name="row" max="100" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                 <span class="border-left pl-3">列</span>

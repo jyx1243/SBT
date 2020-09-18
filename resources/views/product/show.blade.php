@@ -42,9 +42,7 @@
                             <span class="h5">/ {{ $option->name }}</span>
                         @endif
                     </h4>
-                    <h4>
-                        <span class="badge badge-secondary">{{ $option->product->category->name }}</span>
-                    </h4>
+                    <h4><span class="badge badge-secondary">{{ $option->product->category->name }}</span></h4>
                 </div>
 
                 <h6 class="text-muted"> {{ $option->product->subname }}</h6>

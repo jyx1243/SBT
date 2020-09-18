@@ -17,5 +17,11 @@ Route::get('/', function () {
 
 Route::resource('product', 'ProductController');
 
+Route::post('product/{option}/price', 'PriceController@store')->name('price.store');
+Route::delete('product/{option}/price/{price}', 'PriceController@destroy')->name('price.destroy');
+
+Route::post('product/{option}/price/{price}/sale', 'SaleController@store')->name('sale.store');
+Route::delete('product/{option}/price/{price}/sale/{sale}', 'SaleController@destroy')->name('sale.destroy');
+
 Route::post('product/{option}/location', 'LocationController@store')->name('location.store');
 Route::delete('product/{option}/location/{location}', 'LocationController@destroy')->name('location.destroy');

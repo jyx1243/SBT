@@ -4,6 +4,7 @@
 
 <div class="container">
     @include('components/error')
+    @include('components/status')
     
     <form method="POST" action="{{ route('product.update', $option->id) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -77,59 +78,94 @@
             </div>
 
             <hr class="my-4">
-            <h4 class="mb-4">
-                <svg class="bi mx-2" width="18" height="18" fill="currentColor">
-                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
-                </svg>價格資訊
-            </h4>
-            <div class="form-row">
-                <div class="form-group col-8">
-                    <label for="price">
-                        價格 <small class="text-danger">*必填</small>
-                    </label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white pl-3 pr-1 border-right-0">
-                                <span class="border-right pr-3">$</span>
-                            </span>
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <h4>
+                    <svg class="bi mx-2" width="18" height="18" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
+                    </svg>價格資訊
+                </h4>
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-toggle="modal" data-target="#createPriceModal">
+                    <svg class="bi align-top" width="22" height="22" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
+                    </svg>  新增價格
+                </button>
+            </div>
+            @foreach ($option->prices as $price)
+                <div class="form-row justify-content-between align-items-center">
+                    <div class="form-group col-auto order-1 mr-3 mb-1 mb-md-3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultPrice{{ $loop->iteration }}" name="defaultPrice" 
+                            value="{{ $price->id }}" @if ( old('defaultPrice') ?? $option->default_price_id == $price->id ) checked @endif>
+                            <label class="custom-control-label" for="defaultPrice{{ $loop->iteration }}">
+                                <span class="h6">{{ $price->unit->name }}</span> 設為默認價格
+                            </label>
                         </div>
-                        <input type="number" class="form-control border-left-0" value="{{ old('price') }}" id="price" name="price" placeholder="每單位商品價格" step='5' required>
+                    </div>
+                    <div class="form-group col-12 col-md order-3 order-md-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white pl-3 pr-1 border-right-0">
+                                    <span class="border-right pr-3">$</span>
+                                </span>
+                            </div>
+                            <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('price.' . $loop->index) ?? $price->value }}" 
+                            name="price[]" placeholder="每單位商品價格" min="0" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
+                                    <span class="border-left pl-3">{{ $price->unit->name }}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-auto order-2 order-md-3 mb-1 mb-md-3">
+                        <button type="button" class="btn btn-link text-secondary pl-0" data-toggle="modal" data-target="#createSaleModal"
+                        data-unit="{{ $price->unit->name }}" data-action="{{ route('sale.store', ['optionId' => $option->id, 'priceId' => $price->id]) }}">
+                            <svg class="bi align-top" width="22" height="22" fill="currentColor">
+                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
+                            </svg>  新增優惠
+                        </button>
+                        <button type="button" class="btn btn-link text-danger pl-0" data-toggle="modal" data-target="#destroyModal"
+                        data-title="刪除價格" data-action="{{ route('price.destroy', ['optionId' => $option->id, 'priceId' => $price->id]) }}">
+                            <svg class="bi" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                            </svg> 刪除
+                        </button>
                     </div>
                 </div>
-                <div class="form-group col-4">
-                    <label for="unit">
-                        單位 <small class="text-danger">*必填</small>
-                    </label>
-                    <select class="custom-select" id="unit" name="unit" required>
-                        <option value="">選擇單位</option>
-                        <optgroup label="個數">
-                            @foreach ($units->where('standard', '個數') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                        <optgroup label="台制">
-                            @foreach ($units->where('standard', '台制') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                        <optgroup label="公制">
-                            @foreach ($units->where('standard', '公制') as $unit)
-                                <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
-                                    {{ $unit->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultPrice" name="defaultPrice" value="1" checked>
-                <label class="custom-control-label" for="defaultPrice">設為默認價格</label>
-            </div>
+                @foreach ( $price->sales as $sale)
+                    <div class="form-row align-items-center bg-light rounded py-2 pl-2 @if($loop->first) mt-n1 @endif @if($loop->last) mb-2 @endif">
+                        <div class="form-group col-auto mb-0">
+                            <h6><span class="badge badge-secondary">優惠</span></h6>
+                        </div>
+                        <div class="form-group col mb-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white pl-3 pr-1 border-right-0">
+                                        <span class="border-right pr-3">$</span>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control border-left-0" value="{{ old('sale.' . $loop->parent->index . '.' . $loop->index) ?? $sale->value }}" 
+                                name="sale[{{ $loop->parent->index }}][{{ $loop->index }}]" placeholder="優惠價格" min="0" required>
+                                <input type="number" class="form-control border-right-0 col-3" value="{{ old('quantity.' . $loop->parent->index . '.' . $loop->index) ?? $sale->quantity }}" 
+                                name="quantity[{{ $loop->parent->index }}][{{ $loop->index }}]" placeholder="優惠數量" min="0" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
+                                        <span class="border-left pl-3">{{ $price->unit->name }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-auto mb-0">
+                            <button type="button" class="btn btn-link text-danger pl-0" data-toggle="modal" data-target="#destroyModal"
+                            data-title="刪除優惠" data-action="{{ route('sale.destroy', ['optionId' => $option->id, 'priceId' => $price->id, 'saleId' => $sale->id]) }}">
+                                <svg class="bi" width="18" height="18" fill="currentColor">
+                                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                                </svg> 刪除
+                            </button>
+                        </div>
+                    </div>
+                @endforeach
+            @endforeach
        
             <hr class="my-4">
             <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -145,8 +181,8 @@
                 </button>
             </div>
             @foreach ($option->locations as $location)
-                <div class="d-flex justify-content-between align-content-center">
-                    <div class="custom-control custom-radio mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="custom-control custom-radio">
                         <input type="radio" class="custom-control-input" id="defaultLocation{{ $loop->iteration }}" name="defaultLocation" 
                         value="{{ $location->id }}" @if ( old('defaultLocation') ?? $option->default_location_id == $location->id ) checked @endif>
                         <label class="custom-control-label" for="defaultLocation{{ $loop->iteration }}">
@@ -154,7 +190,8 @@
                         </label>
                     </div>
 
-                    <button type="button" class="btn btn-link text-danger" data-toggle="modal" data-target="#destroyLocationModal" data-location="{{ $location->id }}" data-id="{{ $loop->iteration }}">
+                    <button type="button" class="btn btn-link text-danger" data-toggle="modal" data-target="#destroyModal" 
+                    data-title="刪除位置 {{ $loop->iteration }}" data-action="{{ route('location.destroy', ['optionId' => $option->id, 'locationId' => $location->id]) }}">
                         <svg class="bi" width="18" height="18" fill="currentColor">
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
                         </svg> 刪除
@@ -162,21 +199,21 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6 col-md-3">
-                        <select class="custom-select" id="zone" name="zone[]" required>
+                        <select class="custom-select" name="zone[]" required>
                             <option value="">選擇區域</option>
                             @foreach ($zones as $zone)
-                                <option value="{{ $zone->id }}" @if ( old('zone') ?? $location->zone->id == $zone->id ) selected @endif>
+                                <option value="{{ $zone->id }}" @if ( old('zone.' . $loop->index) ?? $location->zone->id == $zone->id ) selected @endif>
                                     {{ $zone->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-6 col-md-3">
-                        <select class="custom-select" id="layer" name="layer[]">
+                        <select class="custom-select" name="layer[]">
                             <option value="">選擇層</option>
-                            <option value="上" @if ( old('layer') ?? $location->layer == '上' ) selected @endif>上層</option>
-                            <option value="中" @if ( old('layer') ?? $location->layer == '中' ) selected @endif>中層</option>
-                            <option value="下" @if ( old('layer') ?? $location->layer == '下' ) selected @endif>下層</option>
+                            <option value="上" @if ( old('layer.' . $loop->index) ?? $location->layer == '上' ) selected @endif>上層</option>
+                            <option value="中" @if ( old('layer.' . $loop->index) ?? $location->layer == '中' ) selected @endif>中層</option>
+                            <option value="下" @if ( old('layer.' . $loop->index) ?? $location->layer == '下' ) selected @endif>下層</option>
                         </select>
                     </div>
                     <div class="form-group col-6 col-md-3">
@@ -190,7 +227,7 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('col') ?? $location->col }}" id="col" name="col[]" max="100">
+                            <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('col.' . $loop->index) ?? $location->col }}" name="col[]" max="100" min="0">
                             <div class="input-group-append">
                                 <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                     <span class="border-left pl-3">欄</span>
@@ -209,7 +246,7 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('row') ?? $location->row }}" id="row" name="row[]" max="100">
+                            <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('row.' . $loop->index) ?? $location->row }}" name="row[]" max="100" min="0">
                             <div class="input-group-append">
                                 <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                     <span class="border-left pl-3">列</span>
@@ -223,6 +260,114 @@
 
         <button type="submit" class="btn btn-secondary rounded-pill d-flex px-4 py-2 mx-auto mt-3">確定修改</button>
     </form>
+</div>
+
+<div class="modal fade" id="createPriceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">新增價格</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('price.store', $option->id) }}">
+                    {{ csrf_field() }}
+                    <div class="form-row">
+                        <div class="form-group col-8">
+                            <label for="price">
+                                價格 <small class="text-danger">*必填</small>
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white pl-3 pr-1 border-right-0">
+                                        <span class="border-right pr-3">$</span>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control border-left-0" value="" id="price" name="price" placeholder="每單位商品價格" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="unit">
+                                單位 <small class="text-danger">*必填</small>
+                            </label>
+                            <select class="custom-select" id="unit" name="unit" required>
+                                <option value="">選擇單位</option>
+                                @foreach ($units->groupBy('standard') as $groups)
+                                    <optgroup label="{{ $groups->first()->standard }}">
+                                        @foreach ($groups as $unit)
+                                            <option value="{{ $unit->id }}" @if ( $option->prices->contains('unit_id', $unit->id) ) disabled @endif>
+                                                {{ $unit->name }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="defaultPrice" name="defaultPrice" value="1">
+                        <label class="custom-control-label" for="defaultPrice">設為默認價格</label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 mr-2" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-secondary rounded-pill px-4">新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createSaleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="modal-form" action="">
+                    {{ csrf_field() }}
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="sale">
+                                優惠價格 <small class="text-danger">*必填</small>
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white pl-3 pr-1 border-right-0">
+                                        <span class="border-right pr-3">$</span>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control border-left-0" value="" id="sale" name="sale" placeholder="商品優惠價格" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="quantity">
+                                優惠數量 <small class="text-danger">*必填</small>
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control border-right-0" value="" id="quantity" name="quantity" placeholder="商品優惠數量" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
+                                        <span class="modal-unit border-left pl-3"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 mr-2" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-secondary rounded-pill px-4">新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="createLocationModal" tabindex="-1" role="dialog">
@@ -239,31 +384,29 @@
                     {{ csrf_field() }}
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="newZone">
+                            <label for="zone">
                                 區域 <small class="text-danger">*必填</small>
                             </label>
-                            <select class="custom-select" id="newZone" name="newZone" required>
+                            <select class="custom-select" id="zone" name="zone" required>
                                 <option value="">選擇區域</option>
                                 @foreach ($zones as $zone)
-                                    <option value="{{ $zone->id }}" @if ( old('newZone') == $zone->id ) selected @endif>
-                                        {{ $zone->name }}
-                                    </option>
+                                    <option value="{{ $zone->id }}">{{ $zone->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-6">
-                            <label for="newLayer">
+                            <label for="layer">
                                 層
                             </label>
-                            <select class="custom-select" id="newLayer" name="newLayer">
+                            <select class="custom-select" id="layer" name="layer">
                                 <option value="">選擇層</option>
-                                <option value="1" @if ( old('newLayer') == 1 ) selected @endif>上層</option>
-                                <option value="2" @if ( old('newLayer') == 2 ) selected @endif>中層</option>
-                                <option value="3" @if ( old('newLayer') == 3 ) selected @endif>下層</option>
+                                <option value="1">上層</option>
+                                <option value="2">中層</option>
+                                <option value="3">下層</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
-                            <label for="newCol">
+                            <label for="col">
                                 欄<small class="ml-1 text-muted">最大100</small>
                             </label>
                             <div class="input-group">
@@ -276,7 +419,7 @@
                                         </span>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('newCol') }}" id="newCol" name="newCol" max="100">
+                                <input type="number" class="form-control border-left-0 border-right-0" value="" id="col" name="col" max="100" min="0">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                         <span class="border-left pl-3">欄</span>
@@ -288,7 +431,7 @@
                             </small>
                         </div>
                         <div class="form-group col-6">
-                            <label for="newRow">
+                            <label for="row">
                                 列<small class="ml-1 text-muted">最大100</small>
                             </label>
                             <div class="input-group">
@@ -301,7 +444,7 @@
                                         </span>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control border-left-0 border-right-0" value="{{ old('newRow') }}" id="newRow" name="newRow" max="100">
+                                <input type="number" class="form-control border-left-0 border-right-0" value="" id="row" name="row" max="100" min="0">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white pr-3 pl-1 border-left-0">
                                         <span class="border-left pl-3">列</span>
@@ -314,8 +457,8 @@
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="newDefaultLocation" name="newDefaultLocation" value="1">
-                        <label class="custom-control-label" for="newDefaultLocation">設為默認位置</label>
+                        <input type="checkbox" class="custom-control-input" id="defaultLocation" name="defaultLocation" value="1">
+                        <label class="custom-control-label" for="defaultLocation">設為默認位置</label>
                     </div>
 
                     <div class="d-flex justify-content-center mt-3">

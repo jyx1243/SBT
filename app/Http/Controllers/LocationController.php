@@ -13,30 +13,31 @@ class LocationController extends Controller
     {
         $location = new Location;
         $location->option_id = $optionId;
-        $location->zone_id = $request->input('newZone');
-        $location->layer = $request->input('newLayer');
-        $location->col = $request->input('newCol');
-        $location->row = $request->input('newRow');
+        $location->zone_id = $request->input('zone');
+        $location->layer = $request->input('layer');
+        $location->col = $request->input('col');
+        $location->row = $request->input('row');
         $location->save();
 
-        if ($request->has('newDefaultLocation')) {
+        if ($request->has('defaultLocation')) {
             $option = Option::find($optionId);
             $option->default_location_id = $location->id;
             $option->save();
         }
 
-        return redirect()->route('product.edit', $optionId);
+        return back()->with('status', '位置新增成功');
     }
 
     public function destroy($optionId, $locationId)
     {
         $location = Location::find($locationId);
-        if ($location->option->default_location_id == $locationId) {
-            $location->option->default_location_id = null;
-            $location->option->save();
+        $option = Option::find($optionId);
+        if ($option->default_location_id == $location->id) {
+            $option->default_location_id = null;
+            $option->save();
         }
         $location->delete();
 
-        return redirect()->route('product.edit', $optionId);
+        return back()->with('status', '位置刪除成功');
     }
 }
