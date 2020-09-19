@@ -17,20 +17,17 @@
                 </div>
     
                 <div class="d-flex flex-column flex-md-row mt-3">
-                    <a class="btn btn-outline-secondary rounded-pill flex-fill mr-0 mr-md-2" href="{{ route('product.edit', $option->id) }}">
+                    <a class="btn btn-outline-secondary rounded-pill mr-0 mr-md-2" href="{{ route('product.edit', $option->id) }}">
                         <svg class="bi" width="18" height="18" fill="currentColor">
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
                         </svg> 修改
                     </a>
-                    <form method="POST" action="">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-outline-danger btn-block rounded-pill mt-2 mt-md-0">
-                            <svg class="bi" width="18" height="18" fill="currentColor">
-                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                            </svg> 刪除
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-outline-danger rounded-pill mt-2 mt-md-0" data-toggle="modal" data-target="#destroyModal"
+                    data-title="刪除 {{ $option->product->name }} {{ $option->name }}" data-action="{{ route('product.destroy', $option->id) }}">
+                        <svg class="bi" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                        </svg> 刪除
+                    </button>
                 </div>
             </div>
 
@@ -53,7 +50,7 @@
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
                         </svg>商品價格
                     </h5>
-                    @foreach ($option->prices as $price)
+                    @foreach ($option->prices->sortBy('unit_id')->values() as $price)
                         <div class="border-top pt-2 mt-2">
                             <span class="h5">$</span>
                             <span class="h4">{{ $price->value }}</span>
@@ -122,5 +119,7 @@
         </div>
     @endif
 </div>
+
+@include('components/destroyModal')
 
 @endsection

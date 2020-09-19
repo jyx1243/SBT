@@ -1,15 +1,15 @@
 @extends('layouts.master') 
-@section('title', '新增商品 | ') 
+@section('title', '新增子項目 '.$product->name.' | ') 
 @section('content')
 
 <div class="container">
     @include('components/error')
 
-    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('product.storeOption', $product->id) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="rounded bg-white shadow-sm mt-4 mx-n3 px-3 py-4">
-            <h2 class="mb-5 mt-3 text-center">新增商品</h2>
+            <h2 class="mb-5 mt-3 text-center">新增子項目</h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
@@ -18,37 +18,24 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="name">
-                        名稱<small class="ml-1 text-danger">*必填<span class="ml-1 text-muted">最多10字</span></small>
+                        名稱
                     </label>
-                    <input type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" value="{{ old('name') }}" id="name" name="name" placeholder="商品名稱" maxlength="10" required>
-                    <div class="invalid-feedback">
-                        @foreach ($errors->get('name') as $error)
-                            {{ $error . ' ' }}
-                        @endforeach
-                    </div>
+                    <input type="text" class="form-control" value="{{ $product->name }}" id="name" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="category">
-                        類型<small class="ml-1 text-danger">*必填</small>
+                        類型
                     </label>
-                    <select class="custom-select" id="category" name="category" required>
-                        <option value="">選擇類型</option>
-                        @foreach ($categorys as $category)
-                            <option value="{{ $category->id }}" @if ( old('category') == $category->id ) selected @endif>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
+                    <select class="custom-select" id="category" disabled>
+                        <option value="">{{ $product->category->name }}</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="subname">
-                    別名<small class="ml-1 text-muted">最多40字</small>
+                    別名
                 </label>
-                <input type="text" class="form-control" value="{{ old('subname') }}" id="subname" name="subname" placeholder="商品別名" maxlength="40">
-                <small id="subnameHelp" class="form-text text-muted">
-                    輸入所有可能的別名、諧音，以便更容易搜尋該商品
-                </small>
+                <input type="text" class="form-control" value="{{ $product->subname }}" id="subname" readonly>
             </div>
         
             <hr class="my-4">

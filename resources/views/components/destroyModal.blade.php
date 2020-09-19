@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h6 class="text-center mt-3 mb-4">刪除後將無法復原，是否確定刪除?</h6>
+                <h6 class="text-center mt-4 mb-5">刪除後將無法復原，是否確定刪除?</h6>
 
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-outline-secondary rounded-pill px-4 mr-2" data-dismiss="modal">取消</button>

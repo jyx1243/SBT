@@ -39,7 +39,7 @@
                         <h6 class="text-muted"> {{ $option->product->subname }}</h6>
 
                         <div class="d-none d-sm-block">
-                            @foreach ($option->prices as $price)
+                            @foreach ($option->prices->sortBy('unit_id')->values() as $price)
                                 <span class="h5">$</span>
                                 <span class="h4">{{ $price->value }}</span>
                                 <span class="h6"> / {{ $price->unit->name }}</span>
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="d-block d-sm-none mt-1">
-                    @foreach ($option->prices as $price)
+                    @foreach ($option->prices->sortBy('unit_id')->values() as $price)
                         <span class="h5">$</span>
                         <span class="h4">{{ $price->value }}</span>
                         <span class="h6"> / {{ $price->unit->name }}</span>

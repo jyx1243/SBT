@@ -24,7 +24,13 @@
                     <label for="name">
                         名稱<small class="ml-1 text-danger">*必填<span class="ml-1 text-muted">最多10字</span></small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('name') ?? $option->product->name }}" id="name" name="name" placeholder="商品名稱" maxlength="10" required>
+                    <input type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" 
+                    value="{{ old('name') ?? $option->product->name }}" id="name" name="name" placeholder="商品名稱" maxlength="10" required>
+                    <div class="invalid-feedback">
+                        @foreach ($errors->get('name') as $error)
+                            {{ $error . ' ' }}
+                        @endforeach
+                    </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="category">
@@ -51,11 +57,18 @@
             </div>
         
             <hr class="my-4">
-            <h4 class="mb-4">
-                <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
-                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
-                </svg>子項目資訊
-            </h4>
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <h4>
+                    <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
+                    </svg>子項目資訊
+                </h4>
+                <a class="btn btn-outline-secondary rounded-pill" href="{{ route('product.createOption', $option->product->id) }}">
+                    <svg class="bi align-top" width="22" height="22" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
+                    </svg>  新增子項目
+                </a>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="optionName">
@@ -90,7 +103,7 @@
                     </svg>  新增價格
                 </button>
             </div>
-            @foreach ($option->prices as $price)
+            @foreach ($option->prices->sortBy('unit_id')->values() as $price)
                 <div class="form-row justify-content-between align-items-center">
                     <div class="form-group col-auto order-1 mr-3 mb-1 mb-md-3">
                         <div class="custom-control custom-radio">

@@ -33,7 +33,7 @@ class LocationController extends Controller
         $location = Location::find($locationId);
         $option = Option::find($optionId);
         if ($option->default_location_id == $location->id) {
-            $option->default_location_id = null;
+            $option->defaultLocation()->dissociate();
             $option->save();
         }
         $location->delete();

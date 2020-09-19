@@ -31,7 +31,7 @@ class PriceController extends Controller
         $price = Price::find($priceId);
         $option = Option::find($optionId);
         if ($option->default_price_id == $price->id) {
-            $option->default_price_id = null;
+            $option->defaultPrice()->dissociate();
             $option->save();
         }
         $price->delete();

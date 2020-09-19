@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
@@ -39,6 +40,14 @@ class ProductController extends Controller
         return view('product/create', ['categorys' => $categorys, 'units' => $units, 'zones' => $zones]);
     }
 
+    public function createOption($productId)
+    {
+        $product = Product::find($productId);
+        $units = Unit::orderBy('id')->get();
+        $zones = Zone::orderBy('id')->get();
+        return view('product/createOption', ['product' => $product, 'units' => $units, 'zones' => $zones]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,12 +61,21 @@ class ProductController extends Controller
             mkdir('img/product', 0755, true);
         }
 
+        // 新增商品
         $product = new Product;
         $product->name = $request->input('name');
         $product->subname = $request->input('subname');
         $product->category_id = $request->input('category');
         $product->save();
 
+        return $this->storeOption($request, $product->id);
+    }
+
+    public function storeOption(Request $request, $productId)
+    {
+        $product = Product::find($productId);
+
+        // 新增子項
         $option = new Option;
         $option->product_id = $product->id;
         $option->name = $request->input('optionName');
@@ -72,6 +90,7 @@ class ProductController extends Controller
         $option->image = $fileName;
         $option->save();
 
+        // 新增價格
         $price = new Price;
         $price->option_id = $option->id;
         $price->unit_id = $request->input('unit');
@@ -83,6 +102,7 @@ class ProductController extends Controller
             $option->save();
         }
 
+        // 新增位置
         $location = new Location;
         $location->option_id = $option->id;
         $location->zone_id = $request->input('zone');
@@ -105,9 +125,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($optionId)
     {
-        $option = Option::find($id);
+        $option = Option::find($optionId);
         return view('product/show', ['option' => $option]);
     }
 
@@ -117,9 +137,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($optionId)
     {
-        $option = Option::find($id);
+        $option = Option::find($optionId);
         $categorys = Category::orderBy('id')->get();
         $units = Unit::orderBy('id')->get();
         $zones = Zone::orderBy('id')->get();
@@ -133,17 +153,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $optionId)
     {
-        // 如果路徑不存在，就自動建立
-        if (!file_exists('img/product')) {
-            mkdir('img/product', 0755, true);
+        $option = Option::find($optionId);
+        // 表單驗證
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:product,name,'.$option->product->id.'|max:10',
+        ],[
+            'name.unique' => '商品名稱已重複',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
 
-        $option = Option::find($id);
+        // 表單已經驗證，儲存到資料庫
         $option->name = $request->input('optionName');
         if ($request->hasFile('image')) {
-            if ($product->image != 'default.jpg') {
+            if ($option->image != 'default.jpg') {
                 @unlink('img/product/' . $option->image);
             }
             $file = $request->file('image');
@@ -154,15 +181,18 @@ class ProductController extends Controller
         }
         $option->save();
 
-        $product = Product::find($option->product->id);
+        // 儲存商品
+        $product = $option->product;
         $product->name = $request->input('name');
         $product->subname = $request->input('subname');
         $product->category_id = $request->input('category');
         $product->save();
 
-        foreach ($option->prices as $priceIndex=>$price) {
+        // 儲存價格
+        foreach ($option->prices->sortBy('unit_id')->values() as $priceIndex=>$price) {
             $price->value = $request->input('price.' . $priceIndex);
             $price->save();
+            // 儲存優惠
             foreach ($price->sales as $saleIndex=>$sale) {
                 $sale->value = $request->input('sale.' . $priceIndex . '.' . $saleIndex);
                 $sale->quantity = $request->input('quantity.' . $priceIndex . '.' . $saleIndex);
@@ -170,11 +200,13 @@ class ProductController extends Controller
             }
         }
 
+        // 儲存默認價格
         if ($request->has('defaultPrice')) {
             $option->default_price_id = $request->input('defaultPrice');
             $option->save();
         }
 
+        // 儲存位置
         foreach ($option->locations as $index=>$location) {
             $location->zone_id = $request->input('zone.' . $index);
             $location->layer = $request->input('layer.' . $index);
@@ -183,6 +215,7 @@ class ProductController extends Controller
             $location->save();
         }
 
+        // 儲存默認位置
         if ($request->has('defaultLocation')) {
             $option->default_location_id = $request->input('defaultLocation');
             $option->save();
@@ -197,8 +230,19 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($optionId)
     {
-        //
+        $option = Option::find($optionId);
+        $option->defaultPrice()->dissociate();
+        $option->defaultLocation()->dissociate();
+        $option->save();
+
+        if (count($option->product->options) == 1) {
+            $option->product->delete();
+        } else {
+            $option->delete();
+        }
+
+        return redirect()->route('product.index');
     }
 }
