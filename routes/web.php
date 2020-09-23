@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-//Route::resource('product', 'ProductController');
+Route::get('products/search', 'ProductController@search')->name('product.search');
+
 Route::get('products', 'ProductController@index')->name('product.index');
 Route::get('products/create', 'ProductController@create')->name('product.create');
 Route::post('products', 'ProductController@store')->name('product.store');

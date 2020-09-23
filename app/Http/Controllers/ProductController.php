@@ -23,7 +23,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $options = Option::orderBy('id')->get();
+        $options = Option::orderBy('id')->paginate(10);
+        return view('product/index', ['options' => $options]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = '%' . $request->input('search') . '%';
+        $options = Option::join('product', 'option.product_id', '=', 'product.id')
+            ->where('product.name', 'like', $keyword)
+            ->orWhere('product.subname', 'like', $keyword)
+            ->orWhere('option.name', 'like', $keyword)
+            ->select('option.*')
+            ->get();
         return view('product/index', ['options' => $options]);
     }
 

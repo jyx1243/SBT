@@ -5,7 +5,7 @@
 <div class="container">
     <div class="rounded bg-white shadow-sm mt-4 mx-n3 p-3">
         <div class="d-flex justify-content-between align-items-end mb-3">
-            <h6>項目總計 {{ count($options) }}</h6>
+            <h6>項目總計 {{ $options->total() }}</h6>
             <a href="{{ route('product.create') }}" class="btn btn-outline-secondary rounded-pill">
                 <svg class="bi align-top" width="22" height="22" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
@@ -63,22 +63,12 @@
                                 </span>
                             @endif
                             
-                            <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="{{ route('product.edit', $option->id) }}">
+                            <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('product.edit', $option->id) }}">
                                 <svg class="bi" width="18" height="18" fill="currentColor">
                                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
                                 </svg>
                                 <span class="d-none d-md-inline"> 修改</span>
                             </a>
-                            <form method="POST" action="">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-outline-danger rounded-pill">
-                                    <svg class="bi" width="18" height="18" fill="currentColor">
-                                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                                    </svg>
-                                    <span class="d-none d-md-inline"> 刪除</span>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -107,22 +97,12 @@
                             </span>
                         @endif
 
-                        <a class="btn btn-outline-secondary rounded-pill ml-auto mr-2" href="{{ route('product.edit', $option->id) }}">
+                        <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('product.edit', $option->id) }}">
                             <svg class="bi" width="18" height="18" fill="currentColor">
                                 <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#pencil-square"/>
                             </svg>
                             <span class="d-none d-md-inline"> 修改</span>
                         </a>
-                        <form method="POST" action="">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-outline-danger rounded-pill">
-                                <svg class="bi" width="18" height="18" fill="currentColor">
-                                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                                </svg>
-                                <span class="d-none d-md-inline"> 刪除</span>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -130,6 +110,8 @@
             <h1>No Product</h1>
         @endforelse
     </div>
+
+    @include('components/pagination', ['results' => $options])
 </div>
 
 @endsection
