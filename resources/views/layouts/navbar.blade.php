@@ -22,12 +22,21 @@
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#bag"/>
                 </svg> 商品
             </a>
-    
-            <a class="text-dark text-decoration-none ml-2" href="">
-                <svg class="bi" width="22" height="22" fill="currentColor">
-                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person"/>
-                </svg> 登入
-            </a>
+
+            {{-- 確認是否登入 --}}
+            @if (Auth::check())
+                <a class="text-dark text-decoration-none ml-3" href="{{ route('logout') }}">
+                    <svg class="bi" width="22" height="22" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person-fill"/>
+                    </svg> 登出
+                </a>
+            @else
+                <a class="text-dark text-decoration-none ml-3" href="{{ route('login.index') }}">
+                    <svg class="bi" width="22" height="22" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person"/>
+                    </svg> 登入
+                </a>
+            @endif
         </div>
     </div>
 </nav>

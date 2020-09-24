@@ -15,24 +15,50 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('products/search', 'ProductController@search')->name('product.search');
+// 搜尋
+Route::get('/products/search', 'ProductController@search')->name('product.search');
 
-Route::get('products', 'ProductController@index')->name('product.index');
-Route::get('products/create', 'ProductController@create')->name('product.create');
-Route::post('products', 'ProductController@store')->name('product.store');
-Route::get('products/option-{option}', 'ProductController@show')->name('product.show');
-Route::get('products/option-{option}/edit', 'ProductController@edit')->name('product.edit');
-Route::put('products/option-{option}', 'ProductController@update')->name('product.update');
-Route::delete('products/option-{option}', 'ProductController@destroy')->name('product.destroy');
+// 商品列表
+Route::get('/products', 'ProductController@index')->name('product.index');
+Route::get('/products/option-{option}', 'ProductController@show')->name('product.show');
 
-Route::get('products/product-{product}/create', 'ProductController@createOption')->name('product.createOption');
-Route::post('products/product-{product}', 'ProductController@storeOption')->name('product.storeOption');
+// 登入頁面
+Route::get('/login', function () {
+    return view('login');
+})->name('login.index');
 
-Route::post('products/option-{option}/price', 'PriceController@store')->name('price.store');
-Route::delete('products/option-{option}/price-{price}', 'PriceController@destroy')->name('price.destroy');
+// 登入
+Route::post('/login', 'Auth\LoginController@login')->name('login');
 
-Route::post('products/option-{option}/price-{price}/sale', 'SaleController@store')->name('sale.store');
-Route::delete('products/option-{option}/price-{price}/sale-{sale}', 'SaleController@destroy')->name('sale.destroy');
+// 管理頁面
+Route::middleware(['auth'])->group(function() {
+    // 登出
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::post('products/option-{option}/location', 'LocationController@store')->name('location.store');
-Route::delete('products/option-{option}/location-{location}', 'LocationController@destroy')->name('location.destroy');
+    // 新增商品
+    Route::get('/products/create', 'ProductController@create')->name('product.create');
+    Route::post('/products', 'ProductController@store')->name('product.store');
+
+    // 修改商品
+    Route::get('/products/option-{option}/edit', 'ProductController@edit')->name('product.edit');
+    Route::put('/products/option-{option}', 'ProductController@update')->name('product.update');
+
+    // 刪除商品
+    Route::delete('/products/option-{option}', 'ProductController@destroy')->name('product.destroy');
+
+    // 新增子項目
+    Route::get('/products/product-{product}/create', 'ProductController@createOption')->name('product.createOption');
+    Route::post('/products/product-{product}', 'ProductController@storeOption')->name('product.storeOption');
+
+    // 管理價格
+    Route::post('/products/option-{option}/price', 'PriceController@store')->name('price.store');
+    Route::delete('/products/option-{option}/price-{price}', 'PriceController@destroy')->name('price.destroy');
+
+    // 管理優惠
+    Route::post('/products/option-{option}/price-{price}/sale', 'SaleController@store')->name('sale.store');
+    Route::delete('/products/option-{option}/price-{price}/sale-{sale}', 'SaleController@destroy')->name('sale.destroy');
+
+    // 管理位置
+    Route::post('/products/option-{option}/location', 'LocationController@store')->name('location.store');
+    Route::delete('/products/option-{option}/location-{location}', 'LocationController@destroy')->name('location.destroy');
+});
