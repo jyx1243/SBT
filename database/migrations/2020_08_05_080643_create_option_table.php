@@ -20,6 +20,7 @@ class CreateOptionTable extends Migration
             $table->string('image')->nullable();
             $table->integer('default_price_id')->unsigned()->nullable()->comment('默認價格');
             $table->integer('default_location_id')->unsigned()->nullable()->comment('默認位置');
+            $table->timestamp('used_at')->nullable()->comment('最後使用時間');
             $table->timestamps();
         });
     }

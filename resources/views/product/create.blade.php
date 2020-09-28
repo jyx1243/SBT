@@ -33,7 +33,7 @@
                     </label>
                     <select class="custom-select" id="category" name="category" required>
                         <option value="">選擇類型</option>
-                        @foreach ($categorys as $category)
+                        @foreach (App\Models\Category::all() as $category)
                             <option value="{{ $category->id }}" @if ( old('category') == $category->id ) selected @endif>
                                 {{ $category->name }}
                             </option>
@@ -109,7 +109,7 @@
                     </label>
                     <select class="custom-select" id="unit" name="unit" required>
                         <option value="">選擇單位</option>
-                        @foreach ($units->groupBy('standard') as $groups)
+                        @foreach (App\Models\Unit::all()->groupBy('standard') as $groups)
                             <optgroup label="{{ $groups->first()->standard }}">
                                 @foreach ($groups as $unit)
                                     <option value="{{ $unit->id }}" @if ( old('unit') == $unit->id ) selected @endif>
@@ -139,7 +139,7 @@
                     </label>
                     <select class="custom-select" id="zone" name="zone" required>
                         <option value="">選擇區域</option>
-                        @foreach ($zones as $zone)
+                        @foreach (App\Models\Zone::all() as $zone)
                             <option value="{{ $zone->id }}" @if ( old('zone') == $zone->id ) selected @endif>
                                 {{ $zone->name }}
                             </option>

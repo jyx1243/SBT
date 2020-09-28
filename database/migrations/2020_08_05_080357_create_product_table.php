@@ -18,7 +18,6 @@ class CreateProductTable extends Migration
             $table->string('name', 10)->unique();
             $table->string('subname', 40)->nullable()->comment('別名');
             $table->tinyInteger('category_id')->unsigned();
-            $table->timestamp('searched_at')->nullable()->comment('最後搜尋時間');
             $table->timestamps();
         });
     }

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', 'IndexController@index')->name('index');
 
 // 搜尋
 Route::get('/products/search', 'ProductController@search')->name('product.search');
