@@ -38,7 +38,7 @@
                     </label>
                     <select class="custom-select" id="category" name="category" required>
                         <option value="">選擇類型</option>
-                        @foreach ($categorys as $category)
+                        @foreach (App\Models\Category::all() as $category)
                             <option value="{{ $category->id }}" @if ( old('category') ?? $option->product->category->id == $category->id ) selected @endif>
                                 {{ $category->name }}
                             </option>
@@ -214,7 +214,7 @@
                     <div class="form-group col-6 col-md-3">
                         <select class="custom-select" name="zone[]" required>
                             <option value="">選擇區域</option>
-                            @foreach ($zones as $zone)
+                            @foreach (App\Models\Zone::all() as $zone)
                                 <option value="{{ $zone->id }}" @if ( old('zone.' . $loop->index) ?? $location->zone->id == $zone->id ) selected @endif>
                                     {{ $zone->name }}
                                 </option>
@@ -307,7 +307,7 @@
                             </label>
                             <select class="custom-select" id="unit" name="unit" required>
                                 <option value="">選擇單位</option>
-                                @foreach ($units->groupBy('standard') as $groups)
+                                @foreach (App\Models\Unit::all()->groupBy('standard') as $groups)
                                     <optgroup label="{{ $groups->first()->standard }}">
                                         @foreach ($groups as $unit)
                                             <option value="{{ $unit->id }}" @if ( $option->prices->contains('unit_id', $unit->id) ) disabled @endif>
@@ -402,7 +402,7 @@
                             </label>
                             <select class="custom-select" id="zone" name="zone" required>
                                 <option value="">選擇區域</option>
-                                @foreach ($zones as $zone)
+                                @foreach (App\Models\Zone::all() as $zone)
                                     <option value="{{ $zone->id }}">{{ $zone->name }}</option>
                                 @endforeach
                             </select>

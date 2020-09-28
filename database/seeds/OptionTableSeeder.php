@@ -27,6 +27,22 @@ class OptionTableSeeder extends Seeder
             'product_id' => 3,
             'name' => '石柱參',
             'image' => '32.jpg'
+        ], [
+            'product_id' => 4,
+            'name' => '中',
+            'image' => 'default.png'
+        ], [
+            'product_id' => 4,
+            'name' => '大',
+            'image' => 'default.png'
+        ], [
+            'product_id' => 5,
+            'name' => '四物',
+            'image' => 'default.png'
+        ], [
+            'product_id' => 5,
+            'name' => '十全',
+            'image' => 'default.png'
         ]]);
     }
 }

@@ -8,11 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use App\Models\Option;
-use App\Models\Category;
 use App\Models\Price;
-use App\Models\Unit;
 use App\Models\Location;
-use App\Models\Zone;
 
 class ProductController extends Controller
 {
@@ -21,9 +18,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $options = Option::orderBy('id')->paginate(10);
+        $options = Option::join('product', 'option.product_id', '=', 'product.id')
+            ->where('category_id', 'like', $request->category ?? '%')
+            ->select('option.*')
+            ->paginate(10);
         return view('product/index', ['options' => $options]);
     }
 
@@ -35,7 +35,7 @@ class ProductController extends Controller
             ->orWhere('product.subname', 'like', $keyword)
             ->orWhere('option.name', 'like', $keyword)
             ->select('option.*')
-            ->get();
+            ->paginate(10);
         return view('product/index', ['options' => $options]);
     }
 
@@ -46,18 +46,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categorys = Category::orderBy('id')->get();
-        $units = Unit::orderBy('id')->get();
-        $zones = Zone::orderBy('id')->get();
-        return view('product/create', ['categorys' => $categorys, 'units' => $units, 'zones' => $zones]);
+        return view('product/create');
     }
 
     public function createOption($productId)
     {
         $product = Product::find($productId);
-        $units = Unit::orderBy('id')->get();
-        $zones = Zone::orderBy('id')->get();
-        return view('product/createOption', ['product' => $product, 'units' => $units, 'zones' => $zones]);
+        return view('product/createOption', ['product' => $product]);
     }
 
     /**
@@ -140,6 +135,8 @@ class ProductController extends Controller
     public function show($optionId)
     {
         $option = Option::find($optionId);
+        $option->used_at = time();
+        $option->save();
         return view('product/show', ['option' => $option]);
     }
 
@@ -152,10 +149,7 @@ class ProductController extends Controller
     public function edit($optionId)
     {
         $option = Option::find($optionId);
-        $categorys = Category::orderBy('id')->get();
-        $units = Unit::orderBy('id')->get();
-        $zones = Zone::orderBy('id')->get();
-        return view('product/edit', ['option' => $option, 'categorys' => $categorys, 'units' => $units, 'zones' => $zones]);
+        return view('product/edit', ['option' => $option]);
     }
 
     /**

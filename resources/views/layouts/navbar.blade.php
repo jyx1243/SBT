@@ -17,21 +17,31 @@
         </form>
 
         <div class="d-flex align-items-center ml-sm-auto order-2 order-sm-3">
-            <a class="text-dark text-decoration-none" href="{{ route('product.index') }}?page=1">
-                <svg class="bi" width="18" height="18" fill="currentColor">
-                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#bag"/>
-                </svg> 商品
-            </a>
+            <div class="dropdown">
+                <button class="dropdown-toggle btn btn-link text-dark text-decoration-none" id="navbarDropdown" 
+                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,100">
+                    <svg class="bi" width="18" height="18" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#bag"/>
+                    </svg> 商品
+                </button>
+                <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('product.index') }}?page=1">全部</a>
+                    <div class="dropdown-divider"></div>
+                    @foreach (App\Models\Category::all() as $category)
+                        <a class="dropdown-item" href="{{ route('product.index') }}?category={{ $category->id }}&page=1">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            </div>
 
             {{-- 確認是否登入 --}}
             @if (Auth::check())
-                <a class="text-dark text-decoration-none ml-3" href="{{ route('logout') }}">
+                <a class="text-dark text-decoration-none ml-2" href="{{ route('logout') }}">
                     <svg class="bi" width="22" height="22" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person-fill"/>
                     </svg> 登出
                 </a>
             @else
-                <a class="text-dark text-decoration-none ml-3" href="{{ route('login.index') }}">
+                <a class="text-dark text-decoration-none ml-2" href="{{ route('login.index') }}">
                     <svg class="bi" width="22" height="22" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#person"/>
                     </svg> 登入

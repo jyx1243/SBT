@@ -8,7 +8,7 @@
             <div class="d-none d-md-flex justify-content-center align-items-center bg-white" style="width: 300px; min-width: 300px; height: 300px;">
                 <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
             </div>
-            <div class="d-flex d-md-none justify-content-center align-items-center bg-white" style="max-width: 100%; height: 300px;">
+            <div class="d-flex d-md-none justify-content-center align-items-center bg-white" style="height: 300px;">
                 <img class="mw-100 mh-100" src="{{ asset('img/product/'. $option->image) }}">
             </div>
 
@@ -43,7 +43,7 @@
                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,10">
                             其他子項目
                         </button>
-                        <div class="dropdown-menu col" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu col border-0 shadow-sm" aria-labelledby="dropdownMenuButton">
                             @foreach ($option->product->options as $otherOption)
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('product.show', $otherOption->id) }}">
                                     <div class="d-flex justify-content-center align-items-center bg-white" style="width: 50px; min-width: 50px; height: 50px;">
@@ -119,22 +119,22 @@
                     <small class="text-muted">總計 {{ count($option->product->options) }}</small>
                 </h5>
             </div>
-            <div class="d-flex mt-3">
+            <div class="d-flex justify-content-center mt-3">
                 @foreach ($option->product->options as $otherOption)
-                    <div class="px-2" style="max-width: 50%;">
+                    <div class="px-2 col-6 col-md-4 col-lg-3">
                         <a href="{{ route('product.show', $otherOption->id) }}">
-                            <div class="d-flex justify-content-center align-items-center bg-white" style="width: 200px; max-width: 100%; height: 200px;">
+                            <div class="d-flex justify-content-center align-items-center bg-light" style="height: 200px;">
                                 <img class="mw-100 mh-100" src="{{ asset('img/product/'. $otherOption->image) }}">
                             </div>
                         
                             <h5 class="text-body mt-3">{{ $otherOption->name }}</h5>
                         </a>
-                        @if ($option->defaultPrice)
+                        @if ($otherOption->defaultPrice)
                             <div class="">
                                 @include('product/priceSpan', ['price' => $otherOption->defaultPrice])
                             </div>
                         @endif
-                        @if ($option->defaultLocation)
+                        @if ($otherOption->defaultLocation)
                             <div class="d-inline-block p-1 pr-2 rounded shadow-sm mt-1 small">
                                 @include('product/locationSpan', ['location' => $otherOption->defaultLocation])
                             </div>
