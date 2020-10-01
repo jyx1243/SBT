@@ -13,4 +13,9 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Product');
     }
+
+    public function options()
+    {
+        return $this->hasManyThrough('App\Models\Option', 'App\Models\Product');
+    }
 }

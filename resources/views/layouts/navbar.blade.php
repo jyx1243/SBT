@@ -25,10 +25,10 @@
                     </svg> 商品
                 </button>
                 <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('product.index') }}?page=1">全部</a>
+                    <a class="dropdown-item" href="{{ route('product.index') }}">全部</a>
                     <div class="dropdown-divider"></div>
                     @foreach (App\Models\Category::all() as $category)
-                        <a class="dropdown-item" href="{{ route('product.index') }}?category={{ $category->id }}&page=1">{{ $category->name }}</a>
+                        <a class="dropdown-item" href="{{ route('product.index') }}?category[]={{ $category->id }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>

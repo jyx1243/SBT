@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Option;
 use App\Models\Price;
 use App\Models\Location;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -19,12 +20,30 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {    
+        $categorys = $request->category;
+        $order = explode("-", $request->order);
+
         $options = Option::join('product', 'option.product_id', '=', 'product.id')
-            ->where('category_id', 'like', $request->category ?? '%')
+            ->when($categorys, function ($query) use ($categorys) {
+                return $query->whereIn('category_id', $categorys);
+            })
+            ->when($order[0], function ($query) use ($order) {
+                return $query->orderBy($order[0], $order[1]);
+            }, function ($query) {
+                return $query->orderBy('id');
+            })
             ->select('option.*')
-            ->paginate(10);
-        return view('product/index', ['options' => $options]);
+            ->paginate(3);
+
+        if ($categorys) {
+            $options->appends(['category' => $categorys]);
+        }
+        if ($order) {
+            $options->appends(['order' => $request->order]);
+        }
+
+        return view('product/index', ['options' => $options, 'queryCategorys' => $categorys, 'queryOrder' => $request->order]);
     }
 
     public function search(Request $request)
