@@ -93,34 +93,36 @@
                                         <span class="h5">/ {{ $option->name }}</span>
                                     @endif
                                 </a>
-                                <h4><span class="badge badge-secondary">{{ $option->product->category->name }}</span></h4>
+                                <h4><a href="{{ route('product.index') }}?category[]={{ $option->product->category->id }}" class="badge badge-secondary">
+                                    {{ $option->product->category->name }}
+                                </a></h4>
                             </div>
 
                             <h6 class="text-muted"> {{ $option->product->subname }}</h6>
 
                             <div class="d-none d-sm-block">
-                                @foreach ($option->prices->sortBy('unit_id')->values() as $price)
-                                    <span class="h5">$</span>
-                                    <span class="h4">{{ $price->value }}</span>
-                                    <span class="h6"> / {{ $price->unit->name }}</span>
-                    
+                                @foreach ($option->prices->sortBy('unit_id')->values()->take(2) as $price)
+                                    @include('product/Components/priceSpan', ['price' => $price])
+
                                     @foreach ($price->sales as $sale)
                                         <span class="badge badge-secondary ml-1">
                                             優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}                            
                                         </span>
-                                    @endforeach
+                                    @endforeach 
 
-                                    @unless ($loop->last)
-                                        <span class="h6 mx-1">,</span>
-                                    @endunless
+                                    <span> , </span>
+
+                                    @if ($loop->last)
+                                        <a href="{{ route('product.show', $option->id) }}#price" class="text-body">更多價格</a>   
+                                    @endif
                                 @endforeach
                             </div>
 
                             <div class="d-none d-sm-flex align-items-center">
                                 @if ($option->defaultLocation)
-                                    <span class="p-1 pr-2 rounded shadow-sm">
+                                    <a href="{{ route('product.show', $option->id) }}#location" class="btn btn-light bg-white p-1 shadow-sm">
                                         @include('product/Components/locationSpan', ['location' => $option->defaultLocation])
-                                    </span>
+                                    </a>
                                 @endif
                                 
                                 <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('product.edit', $option->id) }}">
@@ -134,27 +136,27 @@
                     </div>
 
                     <div class="d-block d-sm-none mt-1">
-                        @foreach ($option->prices->sortBy('unit_id')->values() as $price)
-                            <span class="h5">$</span>
-                            <span class="h4">{{ $price->value }}</span>
-                            <span class="h6"> / {{ $price->unit->name }}</span>
-                    
+                        @foreach ($option->prices->sortBy('unit_id')->values()->take(2) as $price)
+                            @include('product/Components/priceSpan', ['price' => $price])
+
                             @foreach ($price->sales as $sale)
                                 <span class="badge badge-secondary ml-1">
-                                    優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}                             
+                                    優惠 ${{ $sale->value }} / {{ $sale->quantity }}{{ $price->unit->name }}                            
                                 </span>
-                            @endforeach
-        
-                            @unless ($loop->last)
-                                <span class="h6 mx-1">,</span>
-                            @endunless
+                            @endforeach 
+
+                            <span> , </span>
+
+                            @if ($loop->last)
+                                <a href="{{ route('product.show', $option->id) }}#price" class="text-body">更多價格</a>   
+                            @endif
                         @endforeach
         
                         <div class="d-flex align-items-center mt-1">
                             @if ($option->defaultLocation)
-                                <span class="p-1 pr-2 rounded shadow-sm">
+                                <a href="{{ route('product.show', $option->id) }}#location" class="btn btn-light bg-white p-1 shadow-sm">
                                     @include('product/Components/locationSpan', ['location' => $option->defaultLocation])
-                                </span>
+                                </a>
                             @endif
 
                             <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('product.edit', $option->id) }}">

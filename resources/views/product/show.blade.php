@@ -12,7 +12,9 @@
             </div>
 
             <div class="d-flex flex-column flex-fill ml-md-5 mt-3 mt-md-0">
-                <h4><span class="badge badge-secondary">{{ $option->product->category->name }}</span></h4>
+                <h4><a href="{{ route('product.index') }}?category[]={{ $option->product->category->id }}" class="badge badge-secondary">
+                    {{ $option->product->category->name }}
+                </a></h4>
                 <h4>
                     {{ $option->product->name }}
                     @if ($option->name)
@@ -71,6 +73,7 @@
     </div>
 
     <div class="d-flex flex-column flex-md-row mx-n3">
+        <a id="price" class="pt-5 mt-n5"></a>
         <div class="rounded bg-white shadow-sm mt-4 p-3 col mr-0 mr-md-4">
             <h5 class="mb-3">
                 <svg class="bi mx-2" width="18" height="18" fill="currentColor">
@@ -92,6 +95,7 @@
             @endforeach
         </div>
 
+        <a id="location" class="pt-5 mt-n5"></a>
         <div class="rounded bg-white shadow-sm mt-4 p-3 col">
             <h5 class="mb-3">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
