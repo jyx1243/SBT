@@ -16,7 +16,6 @@ class CreateZoneTable extends Migration
         Schema::create('zone', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name')->unique();
-            $table->timestamps();
         });
     }
 

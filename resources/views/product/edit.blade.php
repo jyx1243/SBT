@@ -10,14 +10,14 @@
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
-        <div class="rounded bg-white shadow-sm mt-4 mx-n3 px-3 py-4">
+        <div class="rounded bg-white shadow-sm mt-4 px-3 py-4">
             <h2 class="mb-5 mt-3 text-center">修改 {{ $option->product->name }}
                 <small class="text-muted"> {{ $option->name }}</small>
             </h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
-                </svg>商品基本資訊
+                </svg>基本資訊
             </h4>
             <div class="form-row">
                 <div class="form-group col-md-8">
@@ -61,22 +61,22 @@
                 <h4>
                     <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
-                    </svg>子項目資訊
+                    </svg>分項
                 </h4>
                 <a class="btn btn-outline-secondary rounded-pill" href="{{ route('product.createOption', $option->product->id) }}">
                     <svg class="bi align-top" width="22" height="22" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
-                    </svg>  新增子項目
+                    </svg>  新增分項
                 </a>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="optionName">
-                        子項目名稱<small class="ml-1 text-muted">最多10字</small>
+                        分項名稱<small class="ml-1 text-muted">最多10字</small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('optionName') ?? $option->name }}" id="optionName" name="optionName" placeholder="商品子項名稱" maxlength="10">
+                    <input type="text" class="form-control" value="{{ old('optionName') ?? $option->name }}" id="optionName" name="optionName" placeholder="商品分項名稱" maxlength="10">
                     <small id="subnameHelp" class="form-text text-muted">
-                        多種有價格差異之子項目屬於同一商品，輸入名稱以便區分各子項目
+                        多種有價格差異之分項屬於同一商品，輸入名稱以便區分各分項
                     </small>
                 </div>
                 <div class="form-group col-md-4">
@@ -95,7 +95,7 @@
                 <h4>
                     <svg class="bi mx-2" width="18" height="18" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
-                    </svg>價格資訊
+                    </svg>價格
                 </h4>
                 <button type="button" class="btn btn-outline-secondary rounded-pill" data-toggle="modal" data-target="#createPriceModal">
                     <svg class="bi align-top" width="22" height="22" fill="currentColor">
@@ -105,12 +105,12 @@
             </div>
             @foreach ($option->prices->sortBy('unit_id')->values() as $price)
                 <div class="form-row justify-content-between align-items-center">
-                    <div class="form-group col-auto order-1 mr-3 mb-1 mb-md-3">
+                    <div class="form-group col-auto order-1 mr-sm-3 mb-1 mb-md-3">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" id="defaultPrice{{ $loop->iteration }}" name="defaultPrice" 
                             value="{{ $price->id }}" @if ( old('defaultPrice') ?? $option->default_price_id == $price->id ) checked @endif>
                             <label class="custom-control-label" for="defaultPrice{{ $loop->iteration }}">
-                                <span class="h6">{{ $price->unit->name }}</span> 設為默認價格
+                                <span class="h6">{{ $price->unit->name }}</span> 默認價格
                             </label>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                         data-unit="{{ $price->unit->name }}" data-action="{{ route('sale.store', ['optionId' => $option->id, 'priceId' => $price->id]) }}">
                             <svg class="bi align-top" width="22" height="22" fill="currentColor">
                                 <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
-                            </svg>  新增優惠
+                            </svg>新增優惠
                         </button>
                         <button type="button" class="btn btn-link text-danger pl-0" data-toggle="modal" data-target="#destroyModal"
                         data-title="刪除價格" data-action="{{ route('price.destroy', ['optionId' => $option->id, 'priceId' => $price->id]) }}">
@@ -185,7 +185,7 @@
                 <h4>
                     <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#box-seam"/>
-                    </svg>位置資訊
+                    </svg>位置
                 </h4>
                 <button type="button" class="btn btn-outline-secondary rounded-pill" data-toggle="modal" data-target="#createLocationModal">
                     <svg class="bi align-top" width="22" height="22" fill="currentColor">
@@ -199,7 +199,7 @@
                         <input type="radio" class="custom-control-input" id="defaultLocation{{ $loop->iteration }}" name="defaultLocation" 
                         value="{{ $location->id }}" @if ( old('defaultLocation') ?? $option->default_location_id == $location->id ) checked @endif>
                         <label class="custom-control-label" for="defaultLocation{{ $loop->iteration }}">
-                            <span class="h6">位置 {{ $loop->iteration }}</span> 設為默認位置
+                            <span class="h6">位置 {{ $loop->iteration }}</span> 默認位置
                         </label>
                     </div>
 

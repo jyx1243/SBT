@@ -3,7 +3,7 @@
     <div class="container p-0">
         <a class="navbar-brand" href="{{ route('index') }}">SBT</a>
 
-        <form method="GET" action="{{ route('product.search') }}" class="form-inline col col-sm-auto pl-0">
+        <form method="GET" action="{{ route('product.index') }}" class="form-inline col col-sm-auto pl-0">
             <div class="input-group">
                 <input name="search" type="search" class="form-control search-input bg-light border-0" placeholder="搜尋...">
                 <div class="input-group-append">

@@ -45,7 +45,7 @@ class StoreProductRequest extends FormRequest
             'name.max' => '商品名稱最多10個字',
             'subname.max' => '商品別名最多40個字',
             'category.required' => '請選擇商品類別',
-            'optionName.max' => '子項名稱最多10個字',
+            'optionName.max' => '分項名稱最多10個字',
             'image.image' => '商品圖片必須為圖片檔',
             'price.required' => '商品價格是必填的',
             'price.integer' => '商品價格必須為整數',

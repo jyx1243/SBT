@@ -32,4 +32,14 @@ class Option extends Model
     {
         return $this->hasMany('App\Models\Price');
     }
+
+    public function ingredient()
+    {
+        return $this->hasOne('App\Models\Ingredient');
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany('App\Models\Ingredient')->withPivot('unit_id', 'quantity');
+    }
 }

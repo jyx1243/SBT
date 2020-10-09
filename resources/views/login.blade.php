@@ -5,7 +5,7 @@
 <div class="container">
     @include('components/error')
     
-    <div class="rounded bg-white shadow-sm mt-4 mx-n3 mx-sm-auto px-3 py-4" style="max-width: 600px;">
+    <div class="rounded bg-white shadow-sm mt-4 mx-auto px-3 py-4" style="max-width: 600px;">
         <h2 class="mb-5 mt-3 text-center">登入</h2>
 
         <form method="POST" action="{{ route('login') }}">

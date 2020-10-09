@@ -31,6 +31,22 @@ class ProductTableSeeder extends Seeder
             'name' => '十全大補湯',
             'subname' => '十全飲 十補湯 藥膳湯',
             'category_id' => 5
+        ], [
+            'name' => '蓮子',
+            'subname' => '蓮肉 蓮米 藕實 水芝丹 蓮實 澤芝 蓮蓬子 薂',
+            'category_id' => 1
+        ], [
+            'name' => '山藥',
+            'subname' => '懷山藥 淮山藥 土薯 山薯 山芋 玉延 薯蕷',
+            'category_id' => 1
+        ], [
+            'name' => '茯苓',
+            'subname' => '茯菟 茯靈 茯蕶 茯兔 伏苓 伏菟 松腴 松薯 松苓 雲苓',
+            'category_id' => 1
+        ], [
+            'name' => '芡實',
+            'subname' => '艻子 鴻頭 水流黃 水雞頭 肇實 刺蓮藕 刀芡實 雞頭果 蘇黃 黃實 雞癕 蔿子',
+            'category_id' => 1
         ]]);
     }
 }

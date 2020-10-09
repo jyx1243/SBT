@@ -20,42 +20,51 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {    
-        $categorys = $request->category;
-        $order = explode("-", $request->order);
+    {
+        $queries = array();
+        parse_str($_SERVER['QUERY_STRING'], $queries);
+        unset($queries['page']);
 
         $options = Option::join('product', 'option.product_id', '=', 'product.id')
-            ->when($categorys, function ($query) use ($categorys) {
-                return $query->whereIn('category_id', $categorys);
+            ->when($request->search, function ($query) use ($queries) {
+                $keyword = '%'.$queries['search'].'%';
+                return $query->where(function ($query) use ($keyword) {
+                    $query->where('product.name', 'like', $keyword)
+                        ->orWhere('product.subname', 'like', $keyword)
+                        ->orWhere('option.name', 'like', $keyword);
+                });
             })
-            ->when($order[0], function ($query) use ($order) {
+            ->when($request->category, function ($query) use ($queries) {
+                return $query->whereIn('product.category_id', $queries['category']);
+            })
+            ->when($request->order, function ($query) use ($queries) {
+                $order = explode("-", $queries['order']);
                 return $query->orderBy($order[0], $order[1]);
             }, function ($query) {
                 return $query->orderBy('id');
             })
             ->select('option.*')
-            ->paginate(3);
+            ->paginate(5)
+            ->appends($queries);
 
-        if ($categorys) {
-            $options->appends(['category' => $categorys]);
+        $categoryCount = array();
+        if ($request->search) {
+            $keyword = '%'.$queries['search'].'%';
+            $searchs = Option::join('product', 'option.product_id', '=', 'product.id')
+                ->where('product.name', 'like', $keyword)
+                ->orWhere('product.subname', 'like', $keyword)
+                ->orWhere('option.name', 'like', $keyword)
+                ->get();
+            foreach (Category::all() as $category) {
+                $categoryCount[$category->id] = $searchs->where('category_id', $category->id)->count();
+            }
+        } else {
+            foreach (Category::all() as $category) {
+                $categoryCount[$category->id] = $category->options->count();
+            }
         }
-        if ($order) {
-            $options->appends(['order' => $request->order]);
-        }
 
-        return view('product/index', ['options' => $options, 'queryCategorys' => $categorys, 'queryOrder' => $request->order]);
-    }
-
-    public function search(Request $request)
-    {
-        $keyword = '%' . $request->input('search') . '%';
-        $options = Option::join('product', 'option.product_id', '=', 'product.id')
-            ->where('product.name', 'like', $keyword)
-            ->orWhere('product.subname', 'like', $keyword)
-            ->orWhere('option.name', 'like', $keyword)
-            ->select('option.*')
-            ->paginate(10);
-        return view('product/index', ['options' => $options]);
+        return view('product/index', ['options' => $options, 'queries' => $queries, 'categoryCount' => $categoryCount]);
     }
 
     /**
@@ -101,7 +110,7 @@ class ProductController extends Controller
     {
         $product = Product::find($productId);
 
-        // 新增子項
+        // 新增分項
         $option = new Option;
         $option->product_id = $product->id;
         $option->name = $request->input('optionName');
@@ -183,8 +192,8 @@ class ProductController extends Controller
         $option = Option::find($optionId);
         // 表單驗證
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:product,name,'.$option->product->id.'|max:10',
-        ],[
+            'name' => 'required|unique:product,name,' . $option->product->id . '|max:10',
+        ], [
             'name.unique' => '商品名稱已重複',
         ]);
 
@@ -214,11 +223,11 @@ class ProductController extends Controller
         $product->save();
 
         // 儲存價格
-        foreach ($option->prices->sortBy('unit_id')->values() as $priceIndex=>$price) {
+        foreach ($option->prices->sortBy('unit_id')->values() as $priceIndex => $price) {
             $price->value = $request->input('price.' . $priceIndex);
             $price->save();
             // 儲存優惠
-            foreach ($price->sales as $saleIndex=>$sale) {
+            foreach ($price->sales as $saleIndex => $sale) {
                 $sale->value = $request->input('sale.' . $priceIndex . '.' . $saleIndex);
                 $sale->quantity = $request->input('quantity.' . $priceIndex . '.' . $saleIndex);
                 $sale->save();
@@ -232,7 +241,7 @@ class ProductController extends Controller
         }
 
         // 儲存位置
-        foreach ($option->locations as $index=>$location) {
+        foreach ($option->locations as $index => $location) {
             $location->zone_id = $request->input('zone.' . $index);
             $location->layer = $request->input('layer.' . $index);
             $location->col = $request->input('col.' . $index);

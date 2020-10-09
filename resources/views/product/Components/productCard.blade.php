@@ -1,4 +1,4 @@
-<a href="{{ route('product.show', $option->id) }}">
+<a href="{{ route('product.show', $option->id) }}" class="text-decoration-none">
     <div class="img-square">
         <img class="img-cover" src="{{ asset('img/product/'. $option->image) }}">
     </div>
@@ -11,12 +11,12 @@
     </h5>
 </a>
 @if ($option->defaultPrice)
-    <div class="">
+    <a href="{{ route('product.show', $option->id) }}#price" class="text-body text-decoration-none">
         @include('product/Components/priceSpan', ['price' => $option->defaultPrice])
-    </div>
+    </a>
 @endif
 @if ($option->defaultLocation)
-    <div class="d-inline-block p-1 pr-2 rounded shadow-sm mt-1 small">
+    <a href="{{ route('product.show', $option->id) }}#location" class="btn btn-light bg-white shadow-sm btn-sm mt-1">
         @include('product/Components/locationSpan', ['location' => $option->defaultLocation])
-    </div>
+    </a>
 @endif

@@ -43,6 +43,22 @@ class OptionTableSeeder extends Seeder
             'product_id' => 5,
             'name' => '十全',
             'image' => 'default.png'
+        ], [
+            'product_id' => 6,
+            'name' => null,
+            'image' => 'default.png'
+        ], [
+            'product_id' => 7,
+            'name' => null,
+            'image' => 'default.png'
+        ], [
+            'product_id' => 8,
+            'name' => null,
+            'image' => 'default.png'
+        ], [
+            'product_id' => 9,
+            'name' => null,
+            'image' => 'default.png'
         ]]);
     }
 }

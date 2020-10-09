@@ -8,12 +8,12 @@
     <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
-        <div class="rounded bg-white shadow-sm mt-4 mx-n3 px-3 py-4">
+        <div class="rounded bg-white shadow-sm mt-4 px-3 py-4">
             <h2 class="mb-5 mt-3 text-center">新增商品</h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
-                </svg>商品基本資訊
+                </svg>基本資訊
             </h4>
             <div class="form-row">
                 <div class="form-group col-md-8">
@@ -55,16 +55,16 @@
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
-                </svg>子項目資訊
+                </svg>分項
             </h4>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="optionName">
-                        子項目名稱<small class="ml-1 text-muted">最多10字</small>
+                        分項名稱<small class="ml-1 text-muted">最多10字</small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('optionName') }}" id="optionName" name="optionName" placeholder="商品子項名稱" maxlength="10">
+                    <input type="text" class="form-control" value="{{ old('optionName') }}" id="optionName" name="optionName" placeholder="商品分項名稱" maxlength="10">
                     <small id="subnameHelp" class="form-text text-muted">
-                        多種有價格差異之子項目屬於同一商品，輸入名稱以便區分各子項目
+                        多種有價格差異之分項屬於同一商品，輸入名稱以便區分各分項
                     </small>
                 </div>
                 <div class="form-group col-md-4">
@@ -87,7 +87,7 @@
             <h4 class="mb-4">
                 <svg class="bi mx-2" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#tag"/>
-                </svg>價格資訊
+                </svg>價格
             </h4>
             <div class="form-row">
                 <div class="form-group col-8">
@@ -130,7 +130,7 @@
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#box-seam"/>
-                </svg>位置資訊
+                </svg>位置
             </h4>
             <div class="form-row">
                 <div class="form-group col-6 col-md-3">

@@ -4,41 +4,45 @@
 
 <div class="container">
     <div class="d-flex flex-column flex-lg-row-reverse">
-        <div class="d-flex flex-column flex-sm-row flex-lg-column mt-4 mx-n3 ml-lg-3" style="min-width: 250px;">
+        <div class="d-flex flex-column flex-sm-row flex-lg-column mt-4 ml-lg-3" style="min-width: 250px;">
             <div class="dropdown col col-lg-auto px-0 mr-sm-2 mr-lg-0">
                 <button class="dropdown-toggle btn btn-secondary shadow-sm col" type="button" 
                 id="orderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
-                    排列方式@if ($queryOrder){{ ' : ' . $queryOrder }}@endif
+                    排列方式@if (array_has($queries, ['order'])){{ ' : ' . $queries['order'] }}@endif
                 </button>
                 <div class="dropdown-menu col border-0 shadow-sm" aria-labelledby="orderDropdown">
-                    <a class="dropdown-item" href="{{ route('product.index') }}@if($queryCategorys)?@foreach ($queryCategorys as $q)&category[]={{ $q }}@endforeach @endif">ID</a>
-                    <a class="dropdown-item" href="{{ route('product.index').'?order=used_at-desc' }}@if($queryCategorys)@foreach ($queryCategorys as $q)&category[]={{ $q }}@endforeach @endif">最近觀看</a>
-                    <a class="dropdown-item" href="{{ route('product.index').'?order=category_id-asc' }}@if ($queryCategorys)@foreach ($queryCategorys as $q)&category[]={{ $q }}@endforeach @endif">商品類別</a>
-                    <a class="dropdown-item" href="{{ route('product.index').'?order=created_at-desc' }}@if ($queryCategorys)@foreach ($queryCategorys as $q)&category[]={{ $q }}@endforeach @endif">最近新增</a>
+                    <a class="dropdown-item" href="{{ route('product.index') }}@if($queries)?{{ http_build_query(array_except($queries, ['order'])) }}@endif">ID</a>
+                    <a class="dropdown-item" href="{{ route('product.index').'?'.http_build_query(array_add(array_except($queries, ['order']), 'order', 'used_at-desc')) }}">最近觀看</a>
+                    <a class="dropdown-item" href="{{ route('product.index').'?'.http_build_query(array_add(array_except($queries, ['order']), 'order', 'category_id-asc')) }}">商品類別</a>
+                    <a class="dropdown-item" href="{{ route('product.index').'?'.http_build_query(array_add(array_except($queries, ['order']), 'order', 'created_at-desc')) }}">最近新增</a>
                 </div>
             </div>
 
             <div class="dropdown col px-0 mt-2 mt-sm-0 d-lg-none">
                 <button class="dropdown-toggle btn btn-secondary shadow-sm col" type="button" 
                 id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
-                    商品類別 @if ($queryCategorys)( 已選擇{{count($queryCategorys)}}項 )@endif
+                    商品類別 @if (array_has($queries, ['category']))( 已選擇{{ count($queries['category']) }}項 )@endif
                 </button>
                 <div class="dropdown-menu col border-0 shadow-sm" aria-labelledby="categoryDropdown">
                     <form class="px-3 py-1" method="GET" action="{{ route('product.index') }}">
-                        @if ($queryOrder)<input type="hidden" name="order" value="{{ $queryOrder }}"> @endif
+                        @foreach (array_except($queries, ['category']) as $index => $query) 
+                            <input type="hidden" name="{{ $index }}" value="{{ $query }}">
+                        @endforeach
                         @foreach (App\Models\Category::all() as $category)
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="dropCategory{{ $category->id }}" name="category[]" value="{{ $category->id }}"
-                                    @if ($queryCategorys && in_array($category->id, $queryCategorys)) checked @endif>
-                                    <label class="custom-control-label" for="dropCategory{{ $category->id }}">
-                                        {{ $category->name }} ( {{ count($category->options) }} )
+                                    @if (array_has($queries, ['category']) && in_array($category->id, $queries['category'])) checked @endif>
+                                    <label class="custom-control-label d-flex justify-content-between" for="dropCategory{{ $category->id }}">
+                                        <span>{{ $category->name }}</span>
+                                        <span>( {{ count($category->options) }} )</span>
                                     </label>
                                 </div>
                             </div>
                         @endforeach
                         <div class="d-flex mt-3">
-                            <a class="btn btn-outline-secondary rounded-pill col mr-2" href="{{ route('product.index') }}@if ($queryOrder)?order={{ $queryOrder }}@endif">清除</a>
+                            <a class="btn btn-outline-secondary rounded-pill col mr-2" 
+                            href="{{ route('product.index') }}@if($queries)?{{ http_build_query(array_except($queries, ['category'])) }}@endif">清除</a>
                             <button type="submit" class="btn btn-secondary rounded-pill col">篩選</button>
                         </div>
                     </form>
@@ -46,29 +50,35 @@
             </div>
             
             <div class="bg-white border-0 shadow-sm d-none d-lg-flex flex-column mt-3 p-3">
-                <h6 class="border-bottom pb-3 mb-3">商品類別 @if ($queryCategorys)( 已選擇{{count($queryCategorys)}}項 )@endif</h6>
+                <h6 class="border-bottom pb-3 mb-3">
+                    商品類別 @if (array_has($queries, ['category']))( 已選擇{{ count($queries['category']) }}項 )@endif
+                </h6>
                 <form class="flex-fill" method="GET" action="{{ route('product.index') }}">
-                    @if ($queryOrder)<input type="hidden" name="order" value="{{ $queryOrder }}"> @endif
+                    @foreach (array_except($queries, ['category']) as $index => $query) 
+                        <input type="hidden" name="{{ $index }}" value="{{ $query }}">
+                    @endforeach
                     @foreach (App\Models\Category::all() as $category)
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="divCategory{{ $category->id }}" name="category[]" value="{{ $category->id }}"
-                                @if ($queryCategorys && in_array($category->id, $queryCategorys)) checked @endif>
-                                <label class="custom-control-label" for="divCategory{{ $category->id }}">
-                                    {{ $category->name }}<span class="ml-auto"> ( {{ count($category->options) }} ) </span>
+                                @if (array_has($queries, ['category']) && in_array($category->id, $queries['category'])) checked @endif>
+                                <label class="custom-control-label d-flex justify-content-between" for="divCategory{{ $category->id }}">
+                                    <span>{{ $category->name }}</span>
+                                    <span>( {{ $categoryCount[$category->id] }} )</span>
                                 </label>
                             </div>
                         </div>
                     @endforeach
                     <div class="d-flex mt-3">
-                        <a class="btn btn-outline-secondary rounded-pill col mr-2" href="{{ route('product.index') }}@if ($queryOrder)?order={{ $queryOrder }}@endif">清除</a>
+                        <a class="btn btn-outline-secondary rounded-pill col mr-2" 
+                        href="{{ route('product.index') }}@if($queries)?{{ http_build_query(array_except($queries, ['category'])) }}@endif">清除</a>
                         <button type="submit" class="btn btn-secondary rounded-pill col">篩選</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="rounded bg-white shadow-sm mt-2 mt-lg-4 mx-n3 mr-lg-0 p-3 flex-lg-fill">
+        <div class="rounded bg-white shadow-sm mt-2 mt-lg-4 mr-lg-0 p-3 flex-lg-fill">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h6 class="mb-0">項目總計 {{ $options->total() }}</h6>
                 <a href="{{ route('product.create') }}" class="btn btn-outline-secondary rounded-pill">

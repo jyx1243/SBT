@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryTable extends Migration
+class AddForeignToIngredientTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
-            $table->tinyIncrements('id');
-            $table->string('name')->unique();
+        Schema::table('ingredient', function (Blueprint $table) {
+            $table->foreign('option_id')->references('id')->on('option')->onDelete('cascade');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::table('ingredient', function (Blueprint $table) {
+            //
+        });
     }
 }

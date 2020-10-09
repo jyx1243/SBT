@@ -18,7 +18,6 @@ class CreateUnitTable extends Migration
             $table->string('name')->unique();
             $table->enum('standard', ['個數', '台制', '公制'])->comment('單位標準');
             $table->smallInteger('multiple')->unsigned()->comment('倍率');
-            $table->timestamps();
         });
     }
 

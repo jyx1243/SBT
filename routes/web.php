@@ -13,9 +13,6 @@
 
 Route::get('/', 'IndexController@index')->name('index');
 
-// 搜尋
-Route::get('/products/search', 'ProductController@search')->name('product.search');
-
 // 商品列表
 Route::get('/products', 'ProductController@index')->name('product.index');
 Route::get('/products/option-{option}', 'ProductController@show')->name('product.show');
@@ -29,7 +26,7 @@ Route::get('/login', function () {
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // 管理頁面
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     // 登出
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -44,7 +41,7 @@ Route::middleware(['auth'])->group(function() {
     // 刪除商品
     Route::delete('/products/option-{option}', 'ProductController@destroy')->name('product.destroy');
 
-    // 新增子項目
+    // 新增分項
     Route::get('/products/product-{product}/create', 'ProductController@createOption')->name('product.createOption');
     Route::post('/products/product-{product}', 'ProductController@storeOption')->name('product.storeOption');
 
