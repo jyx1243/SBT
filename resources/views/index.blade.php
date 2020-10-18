@@ -3,8 +3,10 @@
 @section('content')
 
 <div class="container">
-    <h1 class="display-1 text-center mt-5 mb-0">SBT</h1>
-    <h2 class="text-center mb-5">順保堂中藥房</h2>
+    <div class="text-center my-5">
+        <h1 class="display-1 mb-0">SBT</h1>
+        <h2>順保堂中藥房</h2>
+    </div>
     <div class="rounded bg-white shadow-sm p-3">
         <div class="d-flex justify-content-between align-items-center">
             <h6 class="mb-0">最近觀看的商品</h6>

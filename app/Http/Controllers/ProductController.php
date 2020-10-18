@@ -27,33 +27,58 @@ class ProductController extends Controller
 
         $options = Option::join('product', 'option.product_id', '=', 'product.id')
             ->when($request->search, function ($query) use ($queries) {
-                $keyword = '%'.$queries['search'].'%';
-                return $query->where(function ($query) use ($keyword) {
-                    $query->where('product.name', 'like', $keyword)
-                        ->orWhere('product.subname', 'like', $keyword)
-                        ->orWhere('option.name', 'like', $keyword);
-                });
+                $keyword = '%' . $queries['search'] . '%';
+                return $query->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
+                    ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
+                    ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
+                    ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('product.name', 'like', $keyword)
+                            ->orWhere('product.subname', 'like', $keyword)
+                            ->orWhere('option.name', 'like', $keyword)
+                            ->orWhere('ingredient.description', 'like', $keyword)
+                            ->orWhere('iproduct.name', 'like', $keyword)
+                            ->orWhere('iproduct.subname', 'like', $keyword)
+                            ->orWhere('ioption.name', 'like', $keyword);
+                    });
             })
             ->when($request->category, function ($query) use ($queries) {
                 return $query->whereIn('product.category_id', $queries['category']);
             })
             ->when($request->order, function ($query) use ($queries) {
-                $order = explode("-", $queries['order']);
-                return $query->orderBy($order[0], $order[1]);
+                switch ($queries['order']) {
+                    case '最近觀看':
+                        return $query->orderBy('option.used_at', 'desc');
+                    case '最近新增':
+                        return $query->orderBy('option.created_at', 'desc');
+                    case '商品類型':
+                        return $query->orderBy('product.category_id', 'asc');
+                }
             }, function ($query) {
-                return $query->orderBy('id');
+                return $query->orderBy('option.id', 'asc');
             })
             ->select('option.*')
+            ->groupBy('option.id')
             ->paginate(5)
             ->appends($queries);
 
         $categoryCount = array();
         if ($request->search) {
-            $keyword = '%'.$queries['search'].'%';
+            $keyword = '%' . $queries['search'] . '%';
             $searchs = Option::join('product', 'option.product_id', '=', 'product.id')
+                ->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
+                ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
+                ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
+                ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
                 ->where('product.name', 'like', $keyword)
                 ->orWhere('product.subname', 'like', $keyword)
                 ->orWhere('option.name', 'like', $keyword)
+                ->orWhere('ingredient.description', 'like', $keyword)
+                ->orWhere('iproduct.name', 'like', $keyword)
+                ->orWhere('iproduct.subname', 'like', $keyword)
+                ->orWhere('ioption.name', 'like', $keyword)
+                ->select('option.*', 'product.category_id')
+                ->groupBy('option.id')
                 ->get();
             foreach (Category::all() as $category) {
                 $categoryCount[$category->id] = $searchs->where('category_id', $category->id)->count();

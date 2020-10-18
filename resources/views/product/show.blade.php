@@ -42,13 +42,14 @@
                     <div class="dropdown mt-3">
                         <button class="dropdown-toggle btn btn-link text-body border-top rounded-0 col pt-3" type="button" 
                         id="otherDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,10">
-                            其他分項
+                            其他分項 ( {{ count($option->product->options) }} )
                         </button>
                         <div class="dropdown-menu col border-0 shadow-sm" aria-labelledby="otherDropdown">
                             @foreach ($option->product->options as $otherOption)
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('product.show', $otherOption->id) }}">
                                     <img src="{{ asset('img/product/'. $otherOption->image) }}" style="width: 50px; height: 50px; object-fit: cover;">
-                                    <h6 class="ml-2">{{ $otherOption->product->name }} {{ $otherOption->name }}</h6>
+                                    <h6 class="ml-2 mb-0">{{ $otherOption->product->name }} {{ $otherOption->name }}</h6>
+                                    <span class="ml-auto">@include('product/Components/priceSpan', ['price' => $otherOption->defaultPrice])</span>
                                 </a>
                             @endforeach
                         </div>
@@ -117,7 +118,7 @@
                 <svg class="bi" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#journal"/>
                 </svg> 配方
-                <small class="text-muted">總計 {{ count($option->ingredient->options) }} 項</small>
+                <small class="text-muted"> | 總計 {{ count($option->ingredient->options) }}</small>
             </h5>
             <h6>說明：{{ $option->ingredient->description }}</h6>
 
@@ -145,7 +146,7 @@
                 <svg class="bi" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
                 </svg> 其他分項
-                <small class="text-muted">總計 {{ count($option->product->options) }} 項</small>
+                <small class="text-muted"> | 總計 {{ count($option->product->options) }}</small>
             </h5>
             <div class="d-flex flex-wrap mx-n3">
                 @foreach ($option->product->options as $otherOption)

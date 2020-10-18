@@ -10,10 +10,12 @@
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
-        <div class="rounded bg-white shadow-sm mt-4 px-3 py-4">
-            <h2 class="mb-5 mt-3 text-center">修改 {{ $option->product->name }}
+        <div class="rounded bg-white shadow-sm mt-4 p-3">
+            <h2 class="my-4 text-center">修改 {{ $option->product->name }}
                 <small class="text-muted"> {{ $option->name }}</small>
             </h2>
+
+            {{-- 基本資訊 --}}
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
@@ -56,6 +58,7 @@
                 </small>
             </div>
         
+            {{-- 分項 --}}
             <hr class="my-4">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4>
@@ -90,6 +93,7 @@
                 </div>
             </div>
 
+            {{-- 價格 --}}
             <hr class="my-4">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4>
@@ -180,6 +184,7 @@
                 @endforeach
             @endforeach
        
+            {{-- 位置 --}}
             <hr class="my-4">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4>
@@ -269,6 +274,21 @@
                     </div>
                 </div>
             @endforeach
+
+            {{-- 配方 --}}
+            <hr class="my-4">
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <h4>
+                    <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#journal"/>
+                    </svg>配方
+                </h4>
+                {{-- <button type="button" class="btn btn-outline-secondary rounded-pill" data-toggle="modal" data-target="#createLocationModal">
+                    <svg class="bi align-top" width="22" height="22" fill="currentColor">
+                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
+                    </svg>  新增配方
+                </button> --}}
+            </div>
         </div>
 
         <button type="submit" class="btn btn-secondary rounded-pill d-flex px-4 py-2 mx-auto mt-3">確定修改</button>

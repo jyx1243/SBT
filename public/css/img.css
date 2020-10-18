@@ -1,0 +1,43 @@
+.img-square {
+    position: relative;
+    padding-bottom: 100%; 
+    height: 0; 
+}
+
+.img-cover {
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+}
+
+.img-contain {
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain;
+}
+
+.img-product-index {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.img-product-list {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+@media (min-width: 576px) {
+    .img-product-index {
+        width: 150px;
+        height: 150px;
+    }
+
+    .img-product-list {
+        width: 120px;
+        height: 120px;
+    }
+}

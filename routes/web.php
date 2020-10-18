@@ -17,6 +17,12 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::get('/products', 'ProductController@index')->name('product.index');
 Route::get('/products/option-{option}', 'ProductController@show')->name('product.show');
 
+// 清單
+Route::get('/list', 'ListController@index')->name('list.index');
+Route::get('/list/add/option-{option}', 'ListController@add')->name('list.add');
+Route::get('/list/delete/option-{option}', 'ListController@delete')->name('list.delete');
+Route::get('/list/deleteAll', 'ListController@deleteAll')->name('list.deleteAll');
+
 // 登入頁面
 Route::get('/login', function () {
     return view('login');

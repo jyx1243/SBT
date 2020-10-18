@@ -18,6 +18,7 @@
   
   <!-- Custom styles for layouts -->
   <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/img.css') }}" rel="stylesheet">
 
   <title>@yield('title')SBT順保堂</title>
 
@@ -35,6 +36,7 @@
   <script src="{{ asset('jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('js/productEditModal.js') }}"></script>
+  <script src="{{ asset('js/list.js') }}"></script>
 
 </body>
 

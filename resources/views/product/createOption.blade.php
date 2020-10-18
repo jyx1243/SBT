@@ -8,8 +8,8 @@
     <form method="POST" action="{{ route('product.storeOption', $product->id) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
-        <div class="rounded bg-white shadow-sm mt-4 px-3 py-4">
-            <h2 class="mb-5 mt-3 text-center">新增分項</h2>
+        <div class="rounded bg-white shadow-sm mt-4 p-3">
+            <h2 class="my-4 text-center">新增分項</h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
