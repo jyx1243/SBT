@@ -1,5 +1,5 @@
 @extends('layouts.master') 
-@section('title', '新增分項 '.$product->name.' | ') 
+@section('title', '新增 "'.$product->name.'" 的分項 | ') 
 @section('content')
 
 <div class="container">
@@ -9,7 +9,7 @@
         {{ csrf_field() }}
 
         <div class="rounded bg-white shadow-sm mt-4 p-3">
-            <h2 class="my-4 text-center">新增分項</h2>
+            <h2 class="my-4 text-center">新增 "{{ $product->name }}" 的分項</h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>

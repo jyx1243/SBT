@@ -1,5 +1,8 @@
 @extends('layouts.master') 
-@section('title', '商品 | ') 
+@section('title')
+    商品@if (array_has($queries, ['search'])) 搜尋 "{{ $queries['search'] }}"@endif | 
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -79,11 +82,12 @@
         </div>
 
         <div class="rounded bg-white shadow-sm flex-lg-fill p-3 mt-2 mt-lg-4">
+            @if (array_has($queries, ['search']))
+                <h4 class="my-4 text-center">搜尋 "{{ $queries['search'] }}" 的結果</h4>
+            @endif
+
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">
-                    @if (array_has($queries, ['search']))搜尋 "{{ $queries['search'] }}" | @endif
-                    總計 {{ $options->total() }}
-                </h6>
+                <h6 class="mb-0">項目總計 {{ $options->total() }}</h6>
                 <a href="{{ route('product.create') }}" class="btn btn-outline-secondary rounded-pill flex-shrink-0">
                     <svg class="bi align-top" width="22" height="22" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
@@ -92,7 +96,7 @@
             </div>
 
             @forelse ($options as $option)
-                <div class="border-top pt-3 mt-3">
+                <div class="border-top pt-3 mt-3" name="optionDiv" data-id="{{ $option->id }}">
                     <div class="d-flex">
                         <a href="{{ route('product.show', $option->id) }}">
                             <img class="img-product-index" src="{{ asset('img/product/'. $option->image) }}">
@@ -139,21 +143,19 @@
                                 @endif
 
                                 {{-- 判斷商品是否有在清單裡 --}}
-                                @if (in_array($option->id, session('list.options', array())))
-                                    <a class="btn btn-secondary rounded-pill ml-auto" href="{{ route('list.delete', $option->id) }}">
-                                        <svg class="bi mb-1" width="18" height="18" fill="currentColor">
-                                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                                        </svg>
-                                        <span class="d-none d-md-inline"> 移除</span>
-                                    </a>
-                                @else
-                                    <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('list.add', $option->id) }}">
-                                        <svg class="bi mb-1" width="18" height="18" fill="currentColor">
-                                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
-                                        </svg>
-                                        <span class="d-none d-md-inline"> 清單</span>
-                                    </a>
-                                @endif
+                                <button type="button" class="listDeleteBtn btn btn-secondary rounded-pill ml-auto @if (!in_array($option->id, array_column(session('list.options', array()), 'optionId'))) d-none @endif">
+                                    <svg class="bi mb-1" width="18" height="18" fill="currentColor">
+                                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                                    </svg>
+                                    <span class="d-none d-md-inline"> 移除</span>
+                                </button>
+
+                                <button type="button" class="listAddBtn btn btn-outline-secondary rounded-pill ml-auto @if (in_array($option->id, array_column(session('list.options', array()), 'optionId'))) d-none @endif">
+                                    <svg class="bi mb-1" width="18" height="18" fill="currentColor">
+                                        <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
+                                    </svg>
+                                    <span class="d-none d-md-inline"> 清單</span>
+                                </button>
                                 
                                 <a class="btn btn-outline-secondary rounded-pill ml-2" href="{{ route('product.edit', $option->id) }}">
                                     <svg class="bi mb-1" width="18" height="18" fill="currentColor">
@@ -191,21 +193,17 @@
                         @endif
 
                         {{-- 判斷商品是否有在清單裡 --}}
-                        @if (in_array($option->id, session('list.options', array())))
-                            {{-- 移出清單 --}}
-                            <a class="btn btn-secondary rounded-pill ml-auto" href="{{ route('list.delete', $option->id) }}">
-                                <svg class="bi mb-1" width="18" height="18" fill="currentColor">
-                                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                                </svg>
-                            </a>
-                        @else
-                            {{-- 加入清單 --}}
-                            <a class="btn btn-outline-secondary rounded-pill ml-auto" href="{{ route('list.add', $option->id) }}">
-                                <svg class="bi mb-1" width="18" height="18" fill="currentColor">
-                                    <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
-                                </svg>
-                            </a>
-                        @endif
+                        <button type="button" class="listDeleteBtn btn btn-secondary rounded-pill ml-auto @if (!in_array($option->id, array_column(session('list.options', array()), 'optionId'))) d-none @endif">
+                            <svg class="bi mb-1" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
+                            </svg>
+                        </button>
+
+                        <button type="button" class="listAddBtn btn btn-outline-secondary rounded-pill ml-auto @if (in_array($option->id, array_column(session('list.options', array()), 'optionId'))) d-none @endif">
+                            <svg class="bi mb-1" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
+                            </svg>
+                        </button>
 
                         {{-- 修改商品 --}}
                         <a class="btn btn-outline-secondary rounded-pill ml-2" href="{{ route('product.edit', $option->id) }}">
@@ -226,4 +224,8 @@
     @include('components/pagination', ['results' => $options])
 </div>
 
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/product/index.js') }}"></script>
 @endsection

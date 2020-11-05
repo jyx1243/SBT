@@ -118,7 +118,7 @@
                 <svg class="bi" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#journal"/>
                 </svg> 配方
-                <small class="text-muted"> | 總計 {{ count($option->ingredient->options) }}</small>
+                <small class="text-muted"> | 項目總計 {{ count($option->ingredient->options) }}</small>
             </h5>
             <h6>說明：{{ $option->ingredient->description }}</h6>
 
@@ -146,7 +146,7 @@
                 <svg class="bi" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
                 </svg> 其他分項
-                <small class="text-muted"> | 總計 {{ count($option->product->options) }}</small>
+                <small class="text-muted"> | 項目總計 {{ count($option->product->options) }}</small>
             </h5>
             <div class="d-flex flex-wrap mx-n3">
                 @foreach ($option->product->options as $otherOption)

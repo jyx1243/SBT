@@ -23,13 +23,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav ml-auto">
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" 
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" type="button" data-toggle="dropdown">
                         <svg class="bi" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#bag"/>
                         </svg> 商品
-                    </a>
-                    <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
+                    </button>
+                    <div class="dropdown-menu border-0 shadow-sm" style="min-width: 100px;">
                         <a class="dropdown-item" href="{{ route('product.index') }}">全部</a>
                         <div class="dropdown-divider"></div>
                         @foreach (App\Models\Category::all() as $category)
@@ -42,9 +41,9 @@
                     <svg class="bi" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
                     </svg> 清單
-                    @if (session('list.options'))
-                        <span class="badge badge-pill badge-secondary">{{ count(session('list.options')) }}</span>
-                    @endif
+                    <span class="badge badge-pill badge-secondary @if (empty(session('list.options'))) d-none @endif" id="listOptionCount">
+                        {{ count(session('list.options', array())) }}
+                    </span>
                 </a>
 
                 {{-- 確認是否登入 --}}

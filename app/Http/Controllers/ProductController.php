@@ -21,75 +21,172 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $queries = array();
-        parse_str($_SERVER['QUERY_STRING'], $queries);
-        unset($queries['page']);
+        // $queries = array();
+        // parse_str($_SERVER['QUERY_STRING'], $queries);
+        // unset($queries['page']);
 
-        $options = Option::join('product', 'option.product_id', '=', 'product.id')
-            ->when($request->search, function ($query) use ($queries) {
-                $keyword = '%' . $queries['search'] . '%';
-                return $query->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
-                    ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
-                    ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
-                    ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
-                    ->where(function ($query) use ($keyword) {
-                        $query->where('product.name', 'like', $keyword)
-                            ->orWhere('product.subname', 'like', $keyword)
-                            ->orWhere('option.name', 'like', $keyword)
-                            ->orWhere('ingredient.description', 'like', $keyword)
-                            ->orWhere('iproduct.name', 'like', $keyword)
-                            ->orWhere('iproduct.subname', 'like', $keyword)
-                            ->orWhere('ioption.name', 'like', $keyword);
+        $options = Option::when($request->search, function ($query) use ($request) {
+            $keyword = '%'.$request->search.'%';
+            return $query->where('name', 'like', $keyword)
+            ->orWhereHas('product', function ($query) use ($keyword) {
+                $query->where('name', 'like', $keyword)
+                ->orWhere('subname', 'like', $keyword);
+            })
+            ->orWhereHas('ingredient', function ($query) use ($keyword) {
+                $query->where('description', 'like', $keyword)
+                ->orWhereHas('options', function ($query) use ($keyword) {
+                    $query->where('name', 'like', $keyword)
+                    ->orWhereHas('product', function ($query) use ($keyword) {
+                        $query->where('name', 'like', $keyword)
+                        ->orWhere('subname', 'like', $keyword);
                     });
-            })
-            ->when($request->category, function ($query) use ($queries) {
-                return $query->whereIn('product.category_id', $queries['category']);
-            })
-            ->when($request->order, function ($query) use ($queries) {
-                switch ($queries['order']) {
-                    case '最近觀看':
-                        return $query->orderBy('option.used_at', 'desc');
-                    case '最近新增':
-                        return $query->orderBy('option.created_at', 'desc');
-                    case '商品類型':
-                        return $query->orderBy('product.category_id', 'asc');
+                });
+            });
+        })
+        ->when($request->category, function ($query) use ($request) {
+            $categorys = $request->category;
+            return $query->whereHas('product', function ($query) use ($categorys) {
+                $query->whereIn('category_id', $categorys);
+            });
+        })
+        ->when($request->order, function ($query) use ($request) {
+            switch ($request->order) {
+                case 'id':
+                    return $query->orderBy('id', 'asc');
+                case 'used':
+                    return $query->orderBy('used_at', 'desc');
+                case 'created':
+                    return $query->orderBy('created_at', 'desc');
+                case 'category':
+                    return $query->whereHas('product', function ($query) {
+                        $query->orderBy('category_id', 'asc');
+                    });
+            }
+        }, function ($query) {
+            return $query->orderBy('id', 'asc');
+        })
+        ->with([
+            'prices' => function ($query) {
+                $query->orderBy('unit_id');
+            },
+            'prices.sales'
+        ])
+        ->paginate(5)
+        ->withPath('product')
+        ->appends($request->query());
+
+        // ['search' => $request->search, 'category' => $request->category, 'order' => $request->order]
+        // $options = Option::join('product', 'option.product_id', '=', 'product.id')
+        //     ->when($request->search, function ($query) use ($queries) {
+        //         $keyword = '%' . $queries['search'] . '%';
+        //         return $query->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
+        //             ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
+        //             ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
+        //             ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
+        //             ->where(function ($query) use ($keyword) {
+        //                 $query->where('product.name', 'like', $keyword)
+        //                     ->orWhere('product.subname', 'like', $keyword)
+        //                     ->orWhere('option.name', 'like', $keyword)
+        //                     ->orWhere('ingredient.description', 'like', $keyword)
+        //                     ->orWhere('iproduct.name', 'like', $keyword)
+        //                     ->orWhere('iproduct.subname', 'like', $keyword)
+        //                     ->orWhere('ioption.name', 'like', $keyword);
+        //             });
+        //     })
+        //     ->when($request->category, function ($query) use ($queries) {
+        //         return $query->whereIn('product.category_id', $queries['category']);
+        //     })
+        //     ->when($request->order, function ($query) use ($queries) {
+        //         switch ($queries['order']) {
+        //             case '最近觀看':
+        //                 return $query->orderBy('option.used_at', 'desc');
+        //             case '最近新增':
+        //                 return $query->orderBy('option.created_at', 'desc');
+        //             case '商品類型':
+        //                 return $query->orderBy('product.category_id', 'asc');
+        //         }
+        //     }, function ($query) {
+        //         return $query->orderBy('option.id', 'asc');
+        //     })
+        //     ->select('option.*', 'product.id as product_id', 'product.name as product_name', 'product.subname', 'product.category_id')
+        //     ->groupBy('option.id')
+        //     ->with('prices')
+        //     ->paginate(5)
+        //     ->withPath('product')
+        //     ->appends($queries);
+
+        $categoryCounts = Category::when($request->search,function ($query) use ($request) {
+            $keyword = '%'.$request->search.'%';
+            return $query->withCount([
+                'options' => function ($query) use ($keyword) {
+                    $query->where('option.name', 'like', $keyword)
+                    ->orWhereHas('product', function ($query) use ($keyword) {
+                        $query->where('name', 'like', $keyword)
+                        ->orWhere('subname', 'like', $keyword);
+                    })
+                    ->orWhereHas('ingredient', function ($query) use ($keyword) {
+                        $query->where('description', 'like', $keyword)
+                        ->orWhereHas('options', function ($query) use ($keyword) {
+                            $query->where('name', 'like', $keyword)
+                            ->orWhereHas('product', function ($query) use ($keyword) {
+                                $query->where('name', 'like', $keyword)
+                                ->orWhere('subname', 'like', $keyword);
+                            });
+                        });
+                    });
                 }
-            }, function ($query) {
-                return $query->orderBy('option.id', 'asc');
-            })
-            ->select('option.*')
-            ->groupBy('option.id')
-            ->paginate(5)
-            ->appends($queries);
+            ]);
+        }, function ($query) {
+            return $query->withCount('options');
+        })->get();
 
-        $categoryCount = array();
-        if ($request->search) {
-            $keyword = '%' . $queries['search'] . '%';
-            $searchs = Option::join('product', 'option.product_id', '=', 'product.id')
-                ->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
-                ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
-                ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
-                ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
-                ->where('product.name', 'like', $keyword)
-                ->orWhere('product.subname', 'like', $keyword)
-                ->orWhere('option.name', 'like', $keyword)
-                ->orWhere('ingredient.description', 'like', $keyword)
-                ->orWhere('iproduct.name', 'like', $keyword)
-                ->orWhere('iproduct.subname', 'like', $keyword)
-                ->orWhere('ioption.name', 'like', $keyword)
-                ->select('option.*', 'product.category_id')
-                ->groupBy('option.id')
-                ->get();
-            foreach (Category::all() as $category) {
-                $categoryCount[$category->id] = $searchs->where('category_id', $category->id)->count();
-            }
-        } else {
-            foreach (Category::all() as $category) {
-                $categoryCount[$category->id] = $category->options->count();
-            }
-        }
+        // $categoryCounts = array();
+        // if ($request->search) {
+        //     $keyword = '%'.$request->search.'%';
+        //     // $searchs = Option::join('product', 'option.product_id', '=', 'product.id')
+        //     //     ->leftJoin('ingredient', 'option.id', '=', 'ingredient.option_id')
+        //     //     ->leftJoin('ingredient_option', 'ingredient.id', '=', 'ingredient_option.ingredient_id')
+        //     //     ->leftJoin('option as iOption', 'ingredient_option.option_id', '=', 'iOption.id')
+        //     //     ->leftJoin('product as iProduct', 'iOption.product_id', '=', 'iProduct.id')
+        //     //     ->where('product.name', 'like', $keyword)
+        //     //     ->orWhere('product.subname', 'like', $keyword)
+        //     //     ->orWhere('option.name', 'like', $keyword)
+        //     //     ->orWhere('ingredient.description', 'like', $keyword)
+        //     //     ->orWhere('iproduct.name', 'like', $keyword)
+        //     //     ->orWhere('iproduct.subname', 'like', $keyword)
+        //     //     ->orWhere('ioption.name', 'like', $keyword)
+        //     //     ->select('option.*', 'product.category_id')
+        //     //     ->groupBy('option.id')
+        //     //     ->get();
+        //     // foreach (Category::all() as $category) {
+        //     //     $categoryCount[$category->id] = $searchs->where('category_id', $category->id)->count();
+        //     // }
+        //     $categoryCounts = Category::withCount(['options' => function (Builder $query) use ($keyword) {
+        //         $query->where('option.name', 'like', $keyword)
+        //         ->orWhereHas('product', function (Builder $query) use ($keyword) {
+        //             $query->where('name', 'like', $keyword)
+        //             ->orWhere('subname', 'like', $keyword);
+        //         })
+        //         ->orWhereHas('ingredient', function (Builder $query) use ($keyword) {
+        //             $query->where('description', 'like', $keyword)
+        //             ->orWhereHas('options', function (Builder $query) use ($keyword) {
+        //                 $query->where('name', 'like', $keyword)
+        //                 ->orWhereHas('product', function (Builder $query) use ($keyword) {
+        //                     $query->where('name', 'like', $keyword)
+        //                     ->orWhere('subname', 'like', $keyword);
+        //                 });
+        //             });
+        //         });
+        //     }])->get();
+        // } else {
+        //     // foreach (Category::all() as $category) {
+        //     //     $categoryCount[$category->id] = $category->options->count();
+        //     // }
+        //     $categoryCounts = Category::withCount('options')->get();
+        // }
 
-        return view('product/index', ['options' => $options, 'queries' => $queries, 'categoryCount' => $categoryCount]);
+        // return view('product/index', ['options' => $options, 'queries' => $queries, 'categoryCount' => $categoryCount]);
+        return response()->json(['options' => $options, 'categoryCounts' => $categoryCounts]);
     }
 
     /**

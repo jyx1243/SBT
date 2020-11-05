@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     protected $table = 'price';
+    protected $with = ['unit'];
 
     public function option()
     {
