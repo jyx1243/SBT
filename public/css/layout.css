@@ -1,10 +1,22 @@
-body {
-    font-family: '微軟正黑體', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+html, body, #app {
+    height: 100%;
 }
 
-.hashtag {
-    padding-top: 50px;
-    margin-top: -50px;
+body {
+    font-family: '微軟正黑體',
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI", Roboto, 
+        "Helvetica Neue",
+        Arial, sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
+}
+
+.bi {
+    display: inline-flex; 
+    vertical-align: middle;
 }
 
 .search-input {

@@ -7,16 +7,15 @@
                 <div class="input-group">
                     <input v-model="searchInput" type="search" class="form-control search-input bg-light border-0" placeholder="搜尋...">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary search-btn px-0">
-                            <svg class="bi align-top" width="20" height="20" fill="currentColor">
-                                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#search"/>
-                            </svg>
+                        <button type="submit" class="btn btn-primary search-btn px-0">
+                            <i class="bi bi-search"></i>
                         </button>
                     </div>
                 </div>
             </form>
 
-            <button class="navbar-toggler border-0 p-0 ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0 p-0 ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -24,9 +23,7 @@
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
                         <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" type="button" data-toggle="dropdown">
-                            <svg class="bi" width="20" height="20" fill="currentColor">
-                                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#bag"/>
-                            </svg> 商品
+                            <i class="bi bi-bag mr-2"></i>商品
                         </button>
                         <div class="dropdown-menu border-0 shadow-sm" style="min-width: 100px;">
                             <router-link :to="{ name: 'product.index' }" class="dropdown-item">全部</router-link>
@@ -39,9 +36,7 @@
                     </div>
 
                     <!-- <a class="nav-item nav-link" href="{{ route('list.index') }}">
-                        <svg class="bi" width="20" height="20" fill="currentColor">
-                            <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#clipboard"/>
-                        </svg> 清單
+                        <i class="bi bi-clipboard mr-2"></i>清單
                         <span class="badge badge-pill badge-secondary @if (empty(session('list.options'))) d-none @endif" id="listOptionCount">
                             {{ count(session('list.options', array())) }}
                         </span>
@@ -50,15 +45,11 @@
                     {{-- 確認是否登入 --}}
                     @if (Auth::check())
                         <a class="nav-item nav-link" href="{{ route('logout') }}">
-                            <svg class="bi" width="20" height="20" fill="currentColor">
-                                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#person-fill"/>
-                            </svg> 登出
+                            <i class="bi bi-person-fill mr-2"></i>登出
                         </a>
                     @else
                         <a class="nav-item nav-link" href="{{ route('login.index') }}">
-                            <svg class="bi" width="20" height="20" fill="currentColor">
-                                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#person"/>
-                            </svg> 登入
+                            <i class="bi bi-person mr-2"></i>登入
                         </a>
                     @endif -->
                 </div>
@@ -71,18 +62,27 @@
     export default {
         data() {
             return {
-                categorys: {},
-                searchInput: ''
+                categorys: null,
+                searchInput: '',
             }
         },
-        mounted() {
-            axios.get('/api/category').then(response => {
+        created() {
+            axios.get('/api/category')
+            .then(response => {
                 this.categorys = response.data
             })
+        },
+        watch: {
+            $route(to, from) {
+                this.hideCollapse()
+            }
         },
         methods: {
             pushSearch() {
                 this.$router.push({ name: 'product.index', query: { 'search': this.searchInput } })
+            },
+            hideCollapse() {
+                $('.collapse').collapse('hide')
             }
         }
     }

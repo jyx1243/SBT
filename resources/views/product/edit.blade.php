@@ -58,28 +58,28 @@
                 </small>
             </div>
         
-            {{-- 分項 --}}
+            {{-- 品項 --}}
             <hr class="my-4">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4>
                     <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
-                    </svg>分項
+                    </svg>品項
                 </h4>
                 <a class="btn btn-outline-secondary rounded-pill" href="{{ route('product.createOption', $option->product->id) }}">
                     <svg class="bi align-top" width="22" height="22" fill="currentColor">
                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#plus"/>
-                    </svg>  新增分項
+                    </svg>  新增品項
                 </a>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="optionName">
-                        分項名稱<small class="ml-1 text-muted">最多10字</small>
+                        品項名稱<small class="ml-1 text-muted">最多10字</small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('optionName') ?? $option->name }}" id="optionName" name="optionName" placeholder="商品分項名稱" maxlength="10">
+                    <input type="text" class="form-control" value="{{ old('optionName') ?? $option->name }}" id="optionName" name="optionName" placeholder="商品品項名稱" maxlength="10">
                     <small id="subnameHelp" class="form-text text-muted">
-                        多種有價格差異之分項屬於同一商品，輸入名稱以便區分各分項
+                        多種有價格差異之品項屬於同一商品，輸入名稱以便區分各品項
                     </small>
                 </div>
                 <div class="form-group col-md-4">

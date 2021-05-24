@@ -52,7 +52,7 @@ Route::get('/{path}', function () {
 //     // 刪除商品
 //     Route::delete('/products/option-{option}', 'ProductController@destroy')->name('product.destroy');
 
-//     // 新增分項
+//     // 新增品項
 //     Route::get('/products/product-{product}/create', 'ProductController@createOption')->name('product.createOption');
 //     Route::post('/products/product-{product}', 'ProductController@storeOption')->name('product.storeOption');
 

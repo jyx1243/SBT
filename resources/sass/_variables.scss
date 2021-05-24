@@ -1,19 +1,53 @@
-// Body
-$body-bg: #f8fafc;
+// Grays
+$white:    #fff;
+$gray-100: #faf9f8;
+$gray-200: #efece9;
+$gray-300: #e6e3de;
+$gray-400: #dad5ce;
+$gray-500: #bdb7ad;
+$gray-600: #7d786c;
+$gray-700: #575249;
+$gray-800: #403b34;
+$gray-900: #292621;
+$black:    #000;
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$grays: (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
+);
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$or: #D98014;
+$ly: #f0e5c3;
+$my: #A67E00;
+$dy: #736538;
+$lb: #4BD4DE;
+$bg: #1FA689;
+
+$colors: (
+    "or": $or,
+    "my": $my,
+    "dy": $dy,
+    "lb": $lb,
+    "bg": $bg
+);
+
+$theme-colors: (
+    "primary":    $or,
+    "secondary":  $gray-600,
+    "ly":         $ly,
+    "my":         $my,
+    "info":       $bg,
+    "light":      $gray-100,
+    "dark":       $gray-800
+);
+
+$body-bg: $gray-100;
+$link-color: $bg;

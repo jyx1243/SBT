@@ -15,6 +15,8 @@ class Ingredient extends Model
 
     public function options()
     {
-        return $this->belongsToMany('App\Models\Option')->withPivot('unit_id', 'quantity');
+        return $this->belongsToMany('App\Models\Option', 'ingredient_option')
+        ->using('App\Models\IngredientOption')
+        ->withPivot(['unit_id', 'quantity']);
     }
 }

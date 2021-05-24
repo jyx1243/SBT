@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 
 class Option extends Model
 {
+    use EagerLoadPivotTrait;
+    
     protected $table = 'option';
     protected $with = ['product', 'defaultPrice', 'defaultLocation'];
 
@@ -41,6 +44,8 @@ class Option extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany('App\Models\Ingredient')->withPivot('unit_id', 'quantity');
+        return $this->belongsToMany('App\Models\Ingredient', 'ingredient_option')
+        ->using('App\Models\IngredientOption')
+        ->withPivot(['unit_id', 'quantity']);
     }
 }

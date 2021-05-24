@@ -1,5 +1,5 @@
 @extends('layouts.master') 
-@section('title', '新增 "'.$product->name.'" 的分項 | ') 
+@section('title', '新增 "'.$product->name.'" 的品項 | ') 
 @section('content')
 
 <div class="container">
@@ -9,7 +9,7 @@
         {{ csrf_field() }}
 
         <div class="rounded bg-white shadow-sm mt-4 p-3">
-            <h2 class="my-4 text-center">新增 "{{ $product->name }}" 的分項</h2>
+            <h2 class="my-4 text-center">新增 "{{ $product->name }}" 的品項</h2>
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="18" height="18" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#info-circle"/>
@@ -42,16 +42,16 @@
             <h4 class="mb-4">
                 <svg class="bi mx-2 mb-1" width="20" height="20" fill="currentColor">
                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#diagram-3"/>
-                </svg>分項
+                </svg>品項
             </h4>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="optionName">
-                        分項名稱<small class="ml-1 text-muted">最多10字</small>
+                        品項名稱<small class="ml-1 text-muted">最多10字</small>
                     </label>
-                    <input type="text" class="form-control" value="{{ old('optionName') }}" id="optionName" name="optionName" placeholder="商品分項名稱" maxlength="10">
+                    <input type="text" class="form-control" value="{{ old('optionName') }}" id="optionName" name="optionName" placeholder="商品品項名稱" maxlength="10">
                     <small id="subnameHelp" class="form-text text-muted">
-                        多種有價格差異之分項屬於同一商品，輸入名稱以便區分各分項
+                        多種有價格差異之品項屬於同一商品，輸入名稱以便區分各品項
                     </small>
                 </div>
                 <div class="form-group col-md-4">

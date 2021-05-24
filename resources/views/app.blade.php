@@ -18,12 +18,12 @@
 
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#side-nav" data-offset="80">
     
-    <div id="app">
+    <div id="app" class="d-flex flex-column">
         <layout-navbar></layout-navbar>
         <!-- Vue Router 代入的內容 -->
-        <router-view></router-view>
+        <router-view class="flex-grow-1"></router-view>
         <layout-footer></layout-footer>
     </div>
 

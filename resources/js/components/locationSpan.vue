@@ -1,30 +1,23 @@
 <template>
     <span>
-        <svg class="bi mx-1 mb-1" width="16" height="16" fill="currentColor">
-            <use xlink:href="bootstrap-icons/bootstrap-icons.svg#box-seam"/>
-        </svg>
-        {{ location.zone.name }}
+        <i class="bi bi-box-seam mr-1"></i>{{ location.zone.name }}
         
         <template v-if="location.layer">{{ location.layer }}層</template>
 
         <template v-if="location.col">
-            <svg class="bi mb-1" width="16" height="16" fill="currentColor">
-                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#arrow-right-circle"/>
-            </svg>
-            {{ location.col }}
+            <i class="bi bi-arrow-right-circle mr-1"></i>{{ location.col }}
         </template>
 
         <template v-if="location.row">
-            <svg class="bi mb-1" width="16" height="16" fill="currentColor">
-                <use xlink:href="bootstrap-icons/bootstrap-icons.svg#arrow-down-circle"/>
-            </svg>
-            {{ location.row }}
+            <i class="bi bi-arrow-down-circle mr-1"></i>{{ location.row }}
         </template>
     </span>
 </template>
 
 <script>
-    export default {
-        props: ['location']
+export default {
+    props: {
+        location: Object
     }
+}
 </script>
