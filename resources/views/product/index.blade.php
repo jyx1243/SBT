@@ -147,7 +147,7 @@
                                     <svg class="bi mb-1" width="18" height="18" fill="currentColor">
                                         <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
                                     </svg>
-                                    <span class="d-none d-md-inline"> 移除</span>
+                                    <span class="d-none d-md-inline"> 刪除</span>
                                 </button>
 
                                 <button type="button" class="listAddBtn btn btn-outline-secondary rounded-pill ml-auto @if (in_array($option->id, array_column(session('list.options', array()), 'optionId'))) d-none @endif">

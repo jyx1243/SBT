@@ -12,7 +12,7 @@
     <!-- Custom css -->
     <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
     <link href="{{ asset('css/img.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/transition.css') }}" rel="stylesheet">
 
     <title>SBT順保堂</title>
 

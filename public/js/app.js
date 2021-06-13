@@ -1,5 +1,49 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/app"],{
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/deleteModal.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/deleteModal.vue?vue&type=script&lang=js& ***!
@@ -555,6 +599,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -767,6 +857,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_form_BaseInput_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/form/BaseInput.vue */ "./resources/js/components/form/BaseInput.vue");
 /* harmony import */ var _components_form_BaseSelect_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/form/BaseSelect.vue */ "./resources/js/components/form/BaseSelect.vue");
 /* harmony import */ var _components_form_BaseCard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/form/BaseCard.vue */ "./resources/js/components/form/BaseCard.vue");
+/* harmony import */ var _components_ButtonCancel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/ButtonCancel.vue */ "./resources/js/components/ButtonCancel.vue");
+/* harmony import */ var _components_ButtonPlus_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/ButtonPlus.vue */ "./resources/js/components/ButtonPlus.vue");
 //
 //
 //
@@ -988,8 +1080,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
+
 
 
 
@@ -1000,7 +1092,9 @@ __webpack_require__.r(__webpack_exports__);
     FormGroup: _components_form_FormGroup_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     BaseInput: _components_form_BaseInput_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     BaseSelect: _components_form_BaseSelect_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    BaseCard: _components_form_BaseCard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    BaseCard: _components_form_BaseCard_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ButtonCancel: _components_ButtonCancel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ButtonPlus: _components_ButtonPlus_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -1026,22 +1120,28 @@ __webpack_require__.r(__webpack_exports__);
           subname: ''
         },
         options: [{
+          id: 0,
           name: '',
           image: null,
           prices: [{
+            id: 0,
             unit: '',
             value: ''
           }],
+          next_price_id: 1,
           default_price: 0,
           locations: [{
+            id: 0,
             zone: '',
             layer: '',
             col: '',
             row: ''
           }],
+          next_location_id: 1,
           default_location: 0,
           ingredient: {}
-        }]
+        }],
+        next_option_id: 1
       }
     };
   },
@@ -1073,6 +1173,7 @@ __webpack_require__.r(__webpack_exports__);
     addOption: function addOption() {
       this.previewImage.push(null);
       this.form.options.push({
+        id: this.form.next_option_id++,
         name: '',
         image: null,
         prices: [{
@@ -1092,12 +1193,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     addPrice: function addPrice(optionIndex) {
       this.form.options[optionIndex].prices.push({
+        id: this.form.options[optionIndex].next_price_id++,
         unit: '',
         value: ''
       });
     },
     addLocation: function addLocation(optionIndex) {
       this.form.options[optionIndex].locations.push({
+        id: this.form.options[optionIndex].next_location_id++,
         zone: '',
         layer: '',
         col: '',
@@ -2531,6 +2634,88 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-link text-secondary text-decoration-none px-0",
+      on: {
+        click: function($event) {
+          $event.preventDefault()
+          return _vm.$emit("cancel")
+        }
+      }
+    },
+    [
+      _c("i", { staticClass: "bi bi-x h5 mb-0" }),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-outline-primary",
+      on: {
+        click: function($event) {
+          $event.preventDefault()
+          return _vm.$emit("plus")
+        }
+      }
+    },
+    [
+      _c("i", { staticClass: "bi bi-plus h5 mb-0" }),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/deleteModal.vue?vue&type=template&id=54062c72&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/deleteModal.vue?vue&type=template&id=54062c72& ***!
@@ -3377,9 +3562,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\n          " +
                         _vm._s(_vm.option.product.name) +
-                        "\n                    "
+                        "\n          "
                     ),
                     _vm.option.name
                       ? _c("span", { staticClass: "h5" }, [
@@ -3407,9 +3592,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\n            " +
                             _vm._s(_vm.option.product.category.name) +
-                            "\n                    "
+                            "\n          "
                         )
                       ]
                     )
@@ -3442,12 +3627,12 @@ var render = function() {
                             { staticClass: "badge badge-secondary ml-1" },
                             [
                               _vm._v(
-                                "\n                            優惠 $" +
+                                "\n              優惠 $" +
                                   _vm._s(sale.value) +
                                   " / " +
                                   _vm._s(sale.quantity) +
                                   _vm._s(price.unit.name) +
-                                  "\n                        "
+                                  "\n            "
                               )
                             ]
                           )
@@ -3527,12 +3712,12 @@ var render = function() {
                 return _c("span", { key: sale.id }, [
                   _c("span", { staticClass: "badge badge-secondary ml-1" }, [
                     _vm._v(
-                      "\n                    優惠 $" +
+                      "\n          優惠 $" +
                         _vm._s(sale.value) +
                         " / " +
                         _vm._s(sale.quantity) +
                         _vm._s(price.unit.name) +
-                        "\n                "
+                        "\n        "
                     )
                   ])
                 ])
@@ -3948,11 +4133,11 @@ var render = function() {
             [
               _c(
                 "router-link",
-                {
-                  staticClass: "nav-link",
-                  attrs: { to: "#product", href: "#product" }
-                },
-                [_vm._v("基本資訊")]
+                { staticClass: "nav-link", attrs: { to: "#product" } },
+                [
+                  _c("i", { staticClass: "bi bi-info-circle" }),
+                  _vm._v(" 基本資訊\n                ")
+                ]
               ),
               _vm._v(" "),
               _vm._l(_vm.form.options, function(option, optionIndex) {
@@ -3964,17 +4149,14 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "nav-link",
-                        attrs: {
-                          to: "#option" + optionIndex,
-                          href: "#option" + optionIndex
-                        }
+                        attrs: { to: "#option" + optionIndex }
                       },
                       [
+                        _c("i", { staticClass: "bi bi-diagram-3" }),
                         _vm._v(
-                          "\n                        品項 " +
+                          " 品項 " +
                             _vm._s(optionIndex + 1) +
-                            " - " +
-                            _vm._s(option.name) +
+                            _vm._s(option.name ? " - " + option.name : "") +
                             "\n                    "
                         )
                       ]
@@ -3984,18 +4166,15 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "nav-link ml-3",
-                        attrs: {
-                          to: "#option" + optionIndex + "-price",
-                          href: "#option" + optionIndex + "-price"
-                        }
+                        attrs: { to: "#option" + optionIndex + "-price" }
                       },
                       [
+                        _c("i", { staticClass: "bi bi-tag" }),
                         _vm._v(
-                          "\n                        價格 \n                        "
-                        ),
-                        _c("span", [
-                          _vm._v("( " + _vm._s(option.prices.length) + " )")
-                        ])
+                          " 價格 ( " +
+                            _vm._s(option.prices.length) +
+                            " )\n                    "
+                        )
                       ]
                     ),
                     _vm._v(" "),
@@ -4003,14 +4182,12 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "nav-link ml-3",
-                        attrs: {
-                          to: "#option" + optionIndex + "-location",
-                          href: "#option" + optionIndex + "-location"
-                        }
+                        attrs: { to: "#option" + optionIndex + "-location" }
                       },
                       [
+                        _c("i", { staticClass: "bi bi-box-seam" }),
                         _vm._v(
-                          "\n                        位置 ( " +
+                          " 位置 ( " +
                             _vm._s(option.locations.length) +
                             " )\n                    "
                         )
@@ -4029,6 +4206,7 @@ var render = function() {
       _c(
         "form",
         {
+          staticClass: "flex-fill",
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -4220,898 +4398,896 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "transition-group",
             {
-              staticClass:
-                "d-flex justify-content-between align-items-center rounded bg-white shadow-sm mt-3 p-3"
+              staticClass: "position-relative",
+              attrs: { name: "list-flip", tag: "div" }
             },
-            [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "button",
+            _vm._l(_vm.form.options, function(option, optionIndex) {
+              return _c(
+                "div",
                 {
-                  staticClass: "btn btn-outline-primary",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.addOption($event)
-                    }
-                  }
+                  key: "option" + optionIndex,
+                  staticClass: "rounded bg-white shadow-sm mt-3 p-3"
                 },
                 [
-                  _c("i", { staticClass: "bi bi-plus h5 mb-0 mr-1" }),
-                  _vm._v(
-                    "新增品項 ( " +
-                      _vm._s(_vm.form.options.length) +
-                      " )\n                "
-                  )
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.form.options, function(option, optionIndex) {
-            return _c(
-              "div",
-              {
-                key: "option" + optionIndex,
-                staticClass: "rounded bg-white shadow-sm mt-3 p-3"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center bg-ly rounded shadow-sm px-4 py-2 mx-n3 mt-n3",
-                    attrs: { id: "option" + optionIndex }
-                  },
-                  [
-                    _c("h5", { staticClass: "mb-0 py-2" }, [
-                      _vm._v(
-                        "\n                        品項 " +
-                          _vm._s(optionIndex + 1) +
-                          " - " +
-                          _vm._s(option.name) +
-                          "\n                    "
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center mb-3"
+                    },
+                    [
+                      _c(
+                        "h4",
+                        {
+                          staticClass: "mb-0",
+                          attrs: { id: "option" + optionIndex }
+                        },
+                        [
+                          _c("i", { staticClass: "bi bi-diagram-3 mx-2" }),
+                          _vm._v(
+                            " 品項 " +
+                              _vm._s(optionIndex + 1) +
+                              "\n                            "
+                          ),
+                          option.name
+                            ? _c("span", { staticClass: "h6" }, [
+                                _vm._v(" / " + _vm._s(option.name))
+                              ])
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button-cancel",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.form.options.length > 1,
+                              expression: "form.options.length > 1"
+                            }
+                          ],
+                          on: {
+                            cancel: function($event) {
+                              return _vm.removeOption(optionIndex)
+                            }
+                          }
+                        },
+                        [_vm._v("刪除")]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.form.options.length > 1,
-                            expression: "form.options.length > 1"
-                          }
-                        ],
-                        staticClass: "btn btn-link text-danger px-0",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.removeOption(optionIndex)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-x h5 mr-1" }),
-                        _vm._v(
-                          "移除品項 " +
-                            _vm._s(optionIndex + 1) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "d-flex flex-column flex-md-row-reverse mt-3"
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "flex-fill" },
-                      [
-                        _c("form-group", {
-                          attrs: {
-                            id: "optionName",
-                            title: "品項名稱",
-                            errors: _vm.getError(
-                              "options." + optionIndex + ".name"
-                            )
-                          },
-                          scopedSlots: _vm._u(
-                            [
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var id = ref.id
-                                  var title = ref.title
-                                  var required = ref.required
-                                  var hasError = ref.hasError
-                                  return [
-                                    _c("base-input", {
-                                      attrs: {
-                                        type: "text",
-                                        maxlength: 10,
-                                        append: "",
-                                        id: id,
-                                        title: title,
-                                        required: required,
-                                        hasError: hasError
-                                      },
-                                      model: {
-                                        value: option.name,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            option,
-                                            "name",
-                                            typeof $$v === "string"
-                                              ? $$v.trim()
-                                              : $$v
-                                          )
-                                        },
-                                        expression: "option.name"
-                                      }
-                                    })
-                                  ]
-                                }
-                              },
-                              {
-                                key: "help",
-                                fn: function() {
-                                  return [
-                                    _vm._v("輸入品項名稱以便區分各品項。")
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            ],
-                            null,
-                            true
-                          )
-                        }),
-                        _vm._v(" "),
-                        _c("form-group", {
-                          attrs: {
-                            id: "image",
-                            title: "圖片",
-                            errors: _vm.getError(
-                              "options." + optionIndex + ".image"
-                            )
-                          },
-                          scopedSlots: _vm._u(
-                            [
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var id = ref.id
-                                  var hasError = ref.hasError
-                                  return [
-                                    _c("div", { staticClass: "custom-file" }, [
-                                      _c("input", {
-                                        staticClass: "custom-file-input",
-                                        class: { "is-invalid": hasError },
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "d-flex flex-column flex-md-row-reverse mt-3"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "flex-fill" },
+                        [
+                          _c("form-group", {
+                            attrs: {
+                              id: "optionName",
+                              title: "品項名稱",
+                              errors: _vm.getError(
+                                "options." + optionIndex + ".name"
+                              )
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var id = ref.id
+                                    var title = ref.title
+                                    var required = ref.required
+                                    var hasError = ref.hasError
+                                    return [
+                                      _c("base-input", {
                                         attrs: {
-                                          type: "file",
-                                          accept: "image/*",
-                                          id: id
+                                          type: "text",
+                                          maxlength: 10,
+                                          append: "",
+                                          id: id,
+                                          title: title,
+                                          required: required,
+                                          hasError: hasError
                                         },
-                                        on: {
-                                          change: function($event) {
-                                            return _vm.uploadImage(
-                                              optionIndex,
-                                              $event
+                                        model: {
+                                          value: option.name,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              option,
+                                              "name",
+                                              typeof $$v === "string"
+                                                ? $$v.trim()
+                                                : $$v
                                             )
-                                          }
+                                          },
+                                          expression: "option.name"
                                         }
-                                      }),
-                                      _vm._v(" "),
+                                      })
+                                    ]
+                                  }
+                                },
+                                {
+                                  key: "help",
+                                  fn: function() {
+                                    return [
+                                      _vm._v("輸入品項名稱以便區分各品項。")
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("form-group", {
+                            attrs: {
+                              id: "image",
+                              title: "圖片",
+                              errors: _vm.getError(
+                                "options." + optionIndex + ".image"
+                              )
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var id = ref.id
+                                    var hasError = ref.hasError
+                                    return [
                                       _c(
-                                        "label",
+                                        "div",
+                                        { staticClass: "custom-file" },
+                                        [
+                                          _c("input", {
+                                            staticClass: "custom-file-input",
+                                            class: { "is-invalid": hasError },
+                                            attrs: {
+                                              type: "file",
+                                              accept: "image/*",
+                                              id: id
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                return _vm.uploadImage(
+                                                  optionIndex,
+                                                  $event
+                                                )
+                                              }
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass: "custom-file-label",
+                                              attrs: {
+                                                for: id,
+                                                "data-browse": "瀏覽"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  option.image
+                                                    ? option.image.name
+                                                    : "選擇圖片檔案"
+                                                )
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  }
+                                },
+                                {
+                                  key: "help",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "上傳代表此品項的圖片，僅可選擇一張。"
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.previewImage[optionIndex]
+                        ? _c(
+                            "div",
+                            { staticClass: "px-0 mr-md-3 col-md-4 col-lg-3" },
+                            [
+                              _c("img", {
+                                staticClass: "img-fluid",
+                                attrs: { src: _vm.previewImage[optionIndex] }
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "mb-0 border-top pt-4 mt-4" }, [
+                    _c("i", { staticClass: "bi bi-tag mx-2" }),
+                    _vm._v("價格\n                    ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "transition-group",
+                    {
+                      staticClass: "position-relative",
+                      attrs: { name: "list-flip", tag: "div" }
+                    },
+                    _vm._l(option.prices, function(price, priceIndex) {
+                      return _c("base-card", {
+                        key: "price" + price.id,
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "title",
+                              fn: function() {
+                                return [
+                                  _c(
+                                    "h6",
+                                    {
+                                      staticClass: "mb-0",
+                                      class: {
+                                        "text-info":
+                                          option.default_price === priceIndex
+                                      }
+                                    },
+                                    [_vm._v("價格 " + _vm._s(priceIndex + 1))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    [
+                                      _c(
+                                        "button",
                                         {
-                                          staticClass: "custom-file-label",
+                                          staticClass: "btn btn-link px-0",
                                           attrs: {
-                                            for: id,
-                                            "data-browse": "瀏覽"
+                                            disabled:
+                                              option.default_price ===
+                                              priceIndex
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              option.default_price = priceIndex
+                                            }
                                           }
                                         },
                                         [
                                           _vm._v(
-                                            _vm._s(
-                                              option.image
-                                                ? option.image.name
-                                                : "選擇圖片檔案"
-                                            )
+                                            "\n                                        設為主要\n                                    "
                                           )
                                         ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button-cancel",
+                                        {
+                                          on: {
+                                            cancel: function($event) {
+                                              return _vm.removePrice(
+                                                optionIndex,
+                                                priceIndex
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("刪除")]
                                       )
-                                    ])
-                                  ]
-                                }
+                                    ],
+                                    1
+                                  )
+                                ]
                               },
-                              {
-                                key: "help",
-                                fn: function() {
-                                  return [
-                                    _vm._v(
-                                      "上傳代表此品項的圖片，僅可選擇一張。"
+                              proxy: true
+                            },
+                            {
+                              key: "content",
+                              fn: function() {
+                                return [
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-sm-8",
+                                    attrs: {
+                                      id: "value",
+                                      title: "價格",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".prices." +
+                                          priceIndex +
+                                          ".value"
+                                      ),
+                                      required: ""
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-input", {
+                                                attrs: {
+                                                  type: "number",
+                                                  min: 0,
+                                                  prepend: "$",
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                model: {
+                                                  value: price.value,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      price,
+                                                      "value",
+                                                      typeof $$v === "string"
+                                                        ? $$v.trim()
+                                                        : $$v
+                                                    )
+                                                  },
+                                                  expression: "price.value"
+                                                }
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
                                     )
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            ],
-                            null,
-                            true
-                          )
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.previewImage[optionIndex]
-                      ? _c(
-                          "div",
-                          { staticClass: "px-0 mr-md-3 col-md-4 col-lg-3" },
-                          [
-                            _c("img", {
-                              staticClass: "img-fluid",
-                              attrs: { src: _vm.previewImage[optionIndex] }
-                            })
-                          ]
+                                  }),
+                                  _vm._v(" "),
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-sm-4",
+                                    attrs: {
+                                      id: "unit",
+                                      title: "單位",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".prices." +
+                                          priceIndex +
+                                          ".unit"
+                                      ),
+                                      required: ""
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-select", {
+                                                attrs: {
+                                                  options: _vm.units,
+                                                  disableds: option.prices.map(
+                                                    function(i) {
+                                                      return Number(i.unit)
+                                                    }
+                                                  ),
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                model: {
+                                                  value: price.unit,
+                                                  callback: function($$v) {
+                                                    _vm.$set(price, "unit", $$v)
+                                                  },
+                                                  expression: "price.unit"
+                                                }
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
+                                ]
+                              },
+                              proxy: true
+                            }
+                          ],
+                          null,
+                          true
                         )
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                _c("hr", { staticClass: "my-4" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center",
-                    attrs: { id: "option" + optionIndex + "-price" }
-                  },
-                  [
-                    _vm._m(3, true),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.addPrice(optionIndex)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-plus h5 mb-0 mr-1" }),
+                      })
+                    }),
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center mt-3"
+                    },
+                    [
+                      _c("h6", { staticClass: "mb-0" }, [
+                        _c("i", { staticClass: "bi bi-tag" }),
                         _vm._v(
-                          "新增價格 ( " +
+                          " 價格項目總計 " +
                             _vm._s(option.prices.length) +
-                            " )\n                    "
+                            "\n                        "
                         )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._l(option.prices, function(price, priceIndex) {
-                  return _c("base-card", {
-                    key: "price" + priceIndex,
-                    scopedSlots: _vm._u(
-                      [
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button-plus",
                         {
-                          key: "title",
-                          fn: function() {
-                            return [
-                              _c("h6", { staticClass: "mb-0" }, [
-                                _vm._v(
-                                  "價格 " +
-                                    _vm._s(priceIndex + 1) +
-                                    "\n                            "
-                                ),
-                                _c(
-                                  "span",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value:
-                                          option.default_price === priceIndex,
-                                        expression:
-                                          "option.default_price === priceIndex"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "bg-info rounded text-white px-2 py-1 ml-2"
-                                  },
-                                  [_vm._v("主要")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-link px-0",
-                                    attrs: {
-                                      disabled:
-                                        option.default_price === priceIndex
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        option.default_price = priceIndex
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                設為主要\n                            "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-link text-secondary px-0",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.removePrice(
-                                          optionIndex,
-                                          priceIndex
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "bi bi-x h5 mb-0 mr-1"
-                                    }),
-                                    _vm._v("移除\n                            ")
-                                  ]
-                                )
-                              ])
-                            ]
-                          },
-                          proxy: true
-                        },
-                        {
-                          key: "content",
-                          fn: function() {
-                            return [
-                              _c("form-group", {
-                                staticClass: "col-6 col-sm-8",
-                                attrs: {
-                                  id: "value",
-                                  title: "價格",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".prices." +
-                                      priceIndex +
-                                      ".value"
-                                  ),
-                                  required: ""
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-input", {
-                                            attrs: {
-                                              type: "number",
-                                              min: 0,
-                                              prepend: "$",
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            model: {
-                                              value: price.value,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  price,
-                                                  "value",
-                                                  typeof $$v === "string"
-                                                    ? $$v.trim()
-                                                    : $$v
-                                                )
-                                              },
-                                              expression: "price.value"
-                                            }
-                                          })
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              }),
-                              _vm._v(" "),
-                              _c("form-group", {
-                                staticClass: "col-6 col-sm-4",
-                                attrs: {
-                                  id: "unit",
-                                  title: "單位",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".prices." +
-                                      priceIndex +
-                                      ".unit"
-                                  ),
-                                  required: ""
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-select", {
-                                            attrs: {
-                                              options: _vm.units,
-                                              disableds: option.prices.map(
-                                                function(i) {
-                                                  return Number(i.unit)
-                                                }
-                                              ),
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            model: {
-                                              value: price.unit,
-                                              callback: function($$v) {
-                                                _vm.$set(price, "unit", $$v)
-                                              },
-                                              expression: "price.unit"
-                                            }
-                                          })
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              })
-                            ]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
-                }),
-                _vm._v(" "),
-                _c("hr", { staticClass: "my-4" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center mb-3",
-                    attrs: { id: "option" + optionIndex + "-location" }
-                  },
-                  [
-                    _vm._m(4, true),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.addLocation(optionIndex)
+                          on: {
+                            plus: function($event) {
+                              return _vm.addPrice(optionIndex)
+                            }
                           }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-plus h5 mb-0 mr-1" }),
-                        _vm._v(
-                          "新增位置 ( " +
-                            _vm._s(option.locations.length) +
-                            " )\n                    "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._l(option.locations, function(location, locationIndex) {
-                  return _c("base-card", {
-                    key: "location" + locationIndex,
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "title",
-                          fn: function() {
-                            return [
-                              _c("h6", { staticClass: "mb-0" }, [
-                                _vm._v(
-                                  "位置 " +
-                                    _vm._s(locationIndex + 1) +
-                                    "\n                            "
-                                ),
-                                _c(
-                                  "span",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value:
-                                          option.default_location ===
-                                          locationIndex,
-                                        expression:
-                                          "option.default_location === locationIndex"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "bg-info rounded text-white px-2 py-1 ml-2"
-                                  },
-                                  [_vm._v("主要")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-link px-0",
-                                    attrs: {
-                                      disabled:
-                                        option.default_location ===
-                                        locationIndex
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        option.default_location = locationIndex
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                設為主要\n                            "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-link text-secondary px-0",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.removeLocation(
-                                          optionIndex,
-                                          locationIndex
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "bi bi-x h5 mb-0 mr-1"
-                                    }),
-                                    _vm._v("移除\n                            ")
-                                  ]
-                                )
-                              ])
-                            ]
-                          },
-                          proxy: true
                         },
-                        {
-                          key: "content",
-                          fn: function() {
-                            return [
-                              _c("form-group", {
-                                staticClass: "col-6 col-md-3",
-                                attrs: {
-                                  id: "zone",
-                                  title: "區域",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".locations." +
-                                      locationIndex +
-                                      ".zone"
+                        [_vm._v("新增價格")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "mb-0 border-top pt-4 mt-4" }, [
+                    _c("i", { staticClass: "bi bi-box-seam mx-2" }),
+                    _vm._v("位置\n                    ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "transition-group",
+                    {
+                      staticClass: "position-relative",
+                      attrs: { name: "list-flip", tag: "div" }
+                    },
+                    _vm._l(option.locations, function(location, locationIndex) {
+                      return _c("base-card", {
+                        key: "location" + location.id,
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "title",
+                              fn: function() {
+                                return [
+                                  _c(
+                                    "h6",
+                                    {
+                                      staticClass: "mb-0",
+                                      class: {
+                                        "text-info":
+                                          option.default_location ===
+                                          locationIndex
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "位置 " + _vm._s(locationIndex + 1)
+                                      )
+                                    ]
                                   ),
-                                  required: ""
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-select", {
-                                            attrs: {
-                                              options: _vm.zones,
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            model: {
-                                              value: location.zone,
-                                              callback: function($$v) {
-                                                _vm.$set(location, "zone", $$v)
-                                              },
-                                              expression: "location.zone"
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-link px-0",
+                                          attrs: {
+                                            disabled:
+                                              option.default_location ===
+                                              locationIndex
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              option.default_location = locationIndex
                                             }
-                                          })
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        設為主要\n                                    "
+                                          )
                                         ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              }),
-                              _vm._v(" "),
-                              _c("form-group", {
-                                staticClass: "col-6 col-md-3",
-                                attrs: {
-                                  id: "layer",
-                                  title: "層",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".locations." +
-                                      locationIndex +
-                                      ".layer"
-                                  )
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-select", {
-                                            attrs: {
-                                              options: _vm.layers,
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            model: {
-                                              value: location.layer,
-                                              callback: function($$v) {
-                                                _vm.$set(location, "layer", $$v)
-                                              },
-                                              expression: "location.layer"
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button-cancel",
+                                        {
+                                          on: {
+                                            cancel: function($event) {
+                                              return _vm.removeLocation(
+                                                optionIndex,
+                                                locationIndex
+                                              )
                                             }
-                                          })
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              }),
-                              _vm._v(" "),
-                              _c("form-group", {
-                                staticClass: "col-6 col-md-3",
-                                attrs: {
-                                  id: "col",
-                                  title: "欄",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".locations." +
-                                      locationIndex +
-                                      ".col"
+                                          }
+                                        },
+                                        [_vm._v("刪除")]
+                                      )
+                                    ],
+                                    1
                                   )
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-input", {
-                                            attrs: {
-                                              type: "number",
-                                              max: 100,
-                                              min: 0,
-                                              prepend: "",
-                                              placeholder: title,
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "prepend",
-                                                  fn: function() {
-                                                    return [
-                                                      _c("i", {
-                                                        staticClass:
-                                                          "bi bi-arrow-right-circle"
-                                                      })
-                                                    ]
+                                ]
+                              },
+                              proxy: true
+                            },
+                            {
+                              key: "content",
+                              fn: function() {
+                                return [
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-md-3",
+                                    attrs: {
+                                      id: "zone",
+                                      title: "區域",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".locations." +
+                                          locationIndex +
+                                          ".zone"
+                                      ),
+                                      required: ""
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-select", {
+                                                attrs: {
+                                                  options: _vm.zones,
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                model: {
+                                                  value: location.zone,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      location,
+                                                      "zone",
+                                                      $$v
+                                                    )
                                                   },
-                                                  proxy: true
+                                                  expression: "location.zone"
                                                 }
-                                              ],
-                                              null,
-                                              true
-                                            ),
-                                            model: {
-                                              value: location.col,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  location,
-                                                  "col",
-                                                  typeof $$v === "string"
-                                                    ? $$v.trim()
-                                                    : $$v
-                                                )
-                                              },
-                                              expression: "location.col"
-                                            }
-                                          })
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              }),
-                              _vm._v(" "),
-                              _c("form-group", {
-                                staticClass: "col-6 col-md-3",
-                                attrs: {
-                                  id: "row",
-                                  title: "列",
-                                  errors: _vm.getError(
-                                    "options." +
-                                      optionIndex +
-                                      ".locations." +
-                                      locationIndex +
-                                      ".row"
-                                  )
-                                },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "default",
-                                      fn: function(ref) {
-                                        var id = ref.id
-                                        var title = ref.title
-                                        var required = ref.required
-                                        var hasError = ref.hasError
-                                        return [
-                                          _c("base-input", {
-                                            attrs: {
-                                              type: "number",
-                                              max: 100,
-                                              min: 0,
-                                              prepend: "",
-                                              placeholder: title,
-                                              id: id,
-                                              title: title,
-                                              required: required,
-                                              hasError: hasError
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "prepend",
-                                                  fn: function() {
-                                                    return [
-                                                      _c("i", {
-                                                        staticClass:
-                                                          "bi bi-arrow-down-circle"
-                                                      })
-                                                    ]
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-md-3",
+                                    attrs: {
+                                      id: "layer",
+                                      title: "層",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".locations." +
+                                          locationIndex +
+                                          ".layer"
+                                      )
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-select", {
+                                                attrs: {
+                                                  options: _vm.layers,
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                model: {
+                                                  value: location.layer,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      location,
+                                                      "layer",
+                                                      $$v
+                                                    )
                                                   },
-                                                  proxy: true
+                                                  expression: "location.layer"
                                                 }
-                                              ],
-                                              null,
-                                              true
-                                            ),
-                                            model: {
-                                              value: location.row,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  location,
-                                                  "row",
-                                                  typeof $$v === "string"
-                                                    ? $$v.trim()
-                                                    : $$v
-                                                )
-                                              },
-                                              expression: "location.row"
-                                            }
-                                          })
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              })
-                            ]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
-                })
-              ],
-              2
-            )
-          }),
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-md-3",
+                                    attrs: {
+                                      id: "col",
+                                      title: "欄",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".locations." +
+                                          locationIndex +
+                                          ".col"
+                                      )
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-input", {
+                                                attrs: {
+                                                  type: "number",
+                                                  max: 100,
+                                                  min: 0,
+                                                  prepend: "",
+                                                  placeholder: title,
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                scopedSlots: _vm._u(
+                                                  [
+                                                    {
+                                                      key: "prepend",
+                                                      fn: function() {
+                                                        return [
+                                                          _c("i", {
+                                                            staticClass:
+                                                              "bi bi-arrow-right-circle"
+                                                          })
+                                                        ]
+                                                      },
+                                                      proxy: true
+                                                    }
+                                                  ],
+                                                  null,
+                                                  true
+                                                ),
+                                                model: {
+                                                  value: location.col,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      location,
+                                                      "col",
+                                                      typeof $$v === "string"
+                                                        ? $$v.trim()
+                                                        : $$v
+                                                    )
+                                                  },
+                                                  expression: "location.col"
+                                                }
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _c("form-group", {
+                                    staticClass: "col-6 col-md-3",
+                                    attrs: {
+                                      id: "row",
+                                      title: "列",
+                                      errors: _vm.getError(
+                                        "options." +
+                                          optionIndex +
+                                          ".locations." +
+                                          locationIndex +
+                                          ".row"
+                                      )
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var id = ref.id
+                                            var title = ref.title
+                                            var required = ref.required
+                                            var hasError = ref.hasError
+                                            return [
+                                              _c("base-input", {
+                                                attrs: {
+                                                  type: "number",
+                                                  max: 100,
+                                                  min: 0,
+                                                  prepend: "",
+                                                  placeholder: title,
+                                                  id: id,
+                                                  title: title,
+                                                  required: required,
+                                                  hasError: hasError
+                                                },
+                                                scopedSlots: _vm._u(
+                                                  [
+                                                    {
+                                                      key: "prepend",
+                                                      fn: function() {
+                                                        return [
+                                                          _c("i", {
+                                                            staticClass:
+                                                              "bi bi-arrow-down-circle"
+                                                          })
+                                                        ]
+                                                      },
+                                                      proxy: true
+                                                    }
+                                                  ],
+                                                  null,
+                                                  true
+                                                ),
+                                                model: {
+                                                  value: location.row,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      location,
+                                                      "row",
+                                                      typeof $$v === "string"
+                                                        ? $$v.trim()
+                                                        : $$v
+                                                    )
+                                                  },
+                                                  expression: "location.row"
+                                                }
+                                              })
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
+                                ]
+                              },
+                              proxy: true
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      })
+                    }),
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center mt-3"
+                    },
+                    [
+                      _c("h6", { staticClass: "mb-0" }, [
+                        _c("i", { staticClass: "bi bi-box-seam" }),
+                        _vm._v(
+                          " 位置項目總計 " +
+                            _vm._s(option.prices.length) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button-plus",
+                        {
+                          on: {
+                            plus: function($event) {
+                              return _vm.addLocation(optionIndex)
+                            }
+                          }
+                        },
+                        [_vm._v("新增位置")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            0
+          ),
           _vm._v(" "),
           _c(
             "div",
             {
               staticClass:
-                "d-flex justify-content-end align-items-center py-3 mt-1",
+                "d-flex justify-content-between align-items-center mt-3"
+            },
+            [
+              _c("h6", { staticClass: "mb-0" }, [
+                _c("i", { staticClass: "bi bi-diagram-3" }),
+                _vm._v(
+                  " 品項項目總計 " +
+                    _vm._s(_vm.form.options.length) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("button-plus", { on: { plus: _vm.addOption } }, [
+                _vm._v("新增品項")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "d-flex justify-content-end align-items-center border-top py-2 mx-n1 mt-2",
               staticStyle: {
                 position: "sticky",
                 bottom: "0",
@@ -5137,11 +5313,11 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(2)
             ]
           )
         ],
-        2
+        1
       )
     ])
   ])
@@ -5163,33 +5339,6 @@ var staticRenderFns = [
     return _c("h4", { staticClass: "mb-3", attrs: { id: "product" } }, [
       _c("i", { staticClass: "bi bi-info-circle mx-2" }),
       _vm._v("基本資訊\n                ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "mb-0" }, [
-      _c("i", { staticClass: "bi bi-diagram-3 mx-2" }),
-      _vm._v("品項\n                ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "mb-0" }, [
-      _c("i", { staticClass: "bi bi-tag mx-2" }),
-      _vm._v("價格\n                    ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "mb-0" }, [
-      _c("i", { staticClass: "bi bi-box-seam mx-2" }),
-      _vm._v("位置\n                    ")
     ])
   },
   function() {
@@ -7637,6 +7786,144 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonCancel.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ButtonCancel.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonCancel.vue?vue&type=template&id=79780237& */ "./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237&");
+/* harmony import */ var _ButtonCancel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonCancel.vue?vue&type=script&lang=js& */ "./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ButtonCancel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ButtonCancel.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonCancel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ButtonCancel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonCancel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonCancel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ButtonCancel.vue?vue&type=template&id=79780237& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonCancel.vue?vue&type=template&id=79780237&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonCancel_vue_vue_type_template_id_79780237___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonPlus.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/ButtonPlus.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonPlus.vue?vue&type=template&id=2f6d1697& */ "./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697&");
+/* harmony import */ var _ButtonPlus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonPlus.vue?vue&type=script&lang=js& */ "./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ButtonPlus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ButtonPlus.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonPlus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ButtonPlus.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonPlus.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonPlus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ButtonPlus.vue?vue&type=template&id=2f6d1697& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ButtonPlus.vue?vue&type=template&id=2f6d1697&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonPlus_vue_vue_type_template_id_2f6d1697___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

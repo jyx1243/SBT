@@ -151,24 +151,27 @@ class ProductController extends Controller
                 $fileName = 'default.png';
             }
             $option->image = $fileName;
-            $option->default_price_id = $requestOption['default_price'];
-            $option->default_location_id = $requestOption['default_location'];
             $option->save();
 
             // 新增價格
             if (isset($requestOption['prices'])) {
-                foreach ($requestOption['prices'] as $requestPrice) {
+                foreach ($requestOption['prices'] as $requestPriceIndex=>$requestPrice) {
                     $price = new Price;
                     $price->option_id = $option->id;
                     $price->unit_id = $requestPrice['unit'];
                     $price->value = $requestPrice['value'];
                     $price->save();
+
+                    if ($requestOption['default_price'] == $requestPriceIndex) {
+                        $option->default_price_id = $price->id;
+                        $option->save();
+                    }
                 }
             }
 
             // 新增位置
             if (isset($requestOption['locations'])) {
-                foreach ($requestOption['locations'] as $requestLocation) {
+                foreach ($requestOption['locations'] as $requestLocationIndex=>$requestLocation) {
                     $location = new Location;
                     $location->option_id = $option->id;
                     $location->zone_id = $requestLocation['zone'];
@@ -176,6 +179,11 @@ class ProductController extends Controller
                     $location->col = $requestLocation['col'];
                     $location->row = $requestLocation['row'];
                     $location->save();
+
+                    if ($requestOption['default_location'] == $requestLocationIndex) {
+                        $option->default_location_id = $location->id;
+                        $option->save();
+                    }
                 }
             }
         }

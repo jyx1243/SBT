@@ -17,7 +17,7 @@
                     <button type="submit" class="btn btn-outline-danger rounded-pill">
                         <svg class="bi" width="18" height="18" fill="currentColor">
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                        </svg> 移除全部
+                        </svg> 刪除全部
                     </button>
                 </form>
                 <div class="dropdown">
@@ -76,7 +76,7 @@
                             <button class="listDeleteBtn btn btn-link text-danger px-0 flex-shrink-0" type="button">
                                 <svg class="bi" width="18" height="18" fill="currentColor">
                                     <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                                </svg> 移除
+                                </svg> 刪除
                             </button>
 
                             {{-- <div class="input-group ml-3" style="max-width: 120px; min-width: 110px;">
@@ -115,7 +115,7 @@
                     <button class="listDeleteBtn btn btn-link text-danger px-0 flex-shrink-0" type="button">
                         <svg class="bi" width="18" height="18" fill="currentColor">
                             <use xlink:href="{{ asset('bootstrap-icons/bootstrap-icons.svg') }}#trash"/>
-                        </svg> 移除
+                        </svg> 刪除
                     </button>
 
                     <div class="input-group ml-2" style="max-width: 120px; min-width: 110px;">

@@ -1,0 +1,18 @@
+.list-flip-enter {
+    opacity: 0;
+    transform: translateY(-100px);
+}
+.list-flip-leave-to {
+    opacity: 0;
+}
+.list-flip-enter-active,
+.list-flip-move {
+    transition: all .5s ease;
+}
+.list-flip-leave-active {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    /* margin-bottom: -175px; */
+    transition: all .5s ease;
+}
